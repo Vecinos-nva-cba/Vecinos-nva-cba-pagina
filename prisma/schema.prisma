@@ -1,0 +1,73 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Redes {
+  Instagram
+  Facebook
+  Twitter
+  Linkedin
+  Web
+}
+
+model Grupo {
+  id          String  @id @default(uuid())
+  nombre      String
+  descripcion String
+  imagen      String?
+  tipo        String
+  url         String
+}
+
+model Profesional {
+  id       String   @id @default(uuid())
+  nombre   String
+  apellido String
+  trabajo  String[]
+  numero   String
+  imagen   String
+  redes    Red[]
+}
+
+model Lugar {
+  id           String   @id @default(uuid())
+  nombre       String
+  zona         String
+  tipo         String[]
+  imagenes     String[]
+  redes        Red[]
+  localizacion String?
+
+  direccion Direccion[]
+}
+
+model Direccion {
+  id     String @id @default(uuid())
+  calle  String
+  altura Int
+
+  lugar   Lugar  @relation(fields: [lugarId], references: [id])
+  lugarId String
+}
+
+model Red {
+  url  String @id
+  tipo Redes
+
+  profesional   Profesional? @relation(fields: [profesionalId], references: [id])
+  profesionalId String?
+
+  Lugar   Lugar?  @relation(fields: [lugarId], references: [id])
+  lugarId String?
+}
