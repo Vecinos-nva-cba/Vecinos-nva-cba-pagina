@@ -1,6 +1,6 @@
 "use client";
 import { Grupo } from "@/interfaces";
-import { Card } from "..";
+import { GrupoCard } from "..";
 import { useState } from "react";
 
 interface Props {
@@ -27,13 +27,13 @@ export const GrupoGrid = ({ grupos }: Props) => {
         placeholder="Buscar grupo..."
         value={searchText}
         onChange={handleSearchChange}
-        className="p-2 border rounded-md bg-gray-200 mb-6"
+        className="p-2 border rounded-md bg-gray-200 mb-10"
       />
 
       {/* Lista de grupos filtrados */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
         {filteredGrupos.map((grupo) => (
-          <Card key={grupo.url} titulo={grupo.nombre} descripcion={grupo.descripcion} url={grupo.url} img={grupo.imagen ?? '/wpp.jpg'} tipo={grupo.tipo} />
+          <GrupoCard key={grupo.url} titulo={grupo.nombre} descripcion={grupo.descripcion} url={grupo.url} img={grupo.imagen ?? '/wpp.jpg'} tipo={grupo.tipo} />
         ))}
       </div>
     </div>

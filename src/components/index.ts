@@ -2,7 +2,7 @@
 
 export * from './ui/TopMenu'
 export * from './ui/Footer'
-export * from './grupo/grupo'
+export * from './grupo/GRupoCard'
 export * from './grupo/GuposGrid'
 export * from './ui/paginacion/Paginacion'
 export * from './profesional/ProfesionalCard'
@@ -13,3 +13,4 @@ export * from './ui/Boton'
 export * from './ui/Boton'
 export * from './lugar/MuestraLugar'
 export * from './lugar/MuestraLugarMobile'
+export * from './dashboard/Card'

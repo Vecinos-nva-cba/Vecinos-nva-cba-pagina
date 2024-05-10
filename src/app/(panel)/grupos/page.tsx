@@ -1,5 +1,5 @@
 import { getGrupoPaginacion } from "@/actions";
-import { Card, GrupoGrid, Paginacion } from "@/components";
+import { GrupoCard, GrupoGrid, Paginacion } from "@/components";
 
 
 interface Props {

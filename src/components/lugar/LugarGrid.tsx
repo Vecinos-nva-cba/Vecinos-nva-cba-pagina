@@ -27,11 +27,11 @@ export const LugarGrid = ({ lugares }: Props) => {
         placeholder="Buscar lugar..."
         value={searchText}
         onChange={handleSearchChange}
-        className="p-2 border rounded-md bg-gray-200 mb-6"
+        className="p-2 border rounded-md bg-gray-200 mb-10"
       />
 
       {/* Lista de lugares filtrados */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
         {filteredLugares.map((lugar) => (
           <LugarCard key={lugar.nombre + lugar.zona} lugar={lugar} />
         ))}
