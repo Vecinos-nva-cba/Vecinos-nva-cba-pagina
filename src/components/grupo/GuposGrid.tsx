@@ -1,14 +1,16 @@
 "use client";
 import { Grupo } from "@/interfaces";
-import { GrupoCard } from "..";
+import { GrupoCard, Paginacion } from "..";
 import { useState } from "react";
 
 interface Props {
   grupos: Grupo[];
+  totalPaginas: number
 }
 
-export const GrupoGrid = ({ grupos }: Props) => {
+export const GrupoGrid = ({ grupos, totalPaginas }: Props) => {
   const [searchText, setSearchText] = useState("");
+  const [isSearching, setIsSearching] = useState(false)
 
   const filteredGrupos = grupos.filter(
     (grupo) =>
@@ -17,7 +19,9 @@ export const GrupoGrid = ({ grupos }: Props) => {
   );
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchText(event.target.value);
+    const value = event.target.value;
+    setSearchText(value);
+    setIsSearching(value.length > 0);
   };
   return (
     <div className="m-8">
@@ -36,6 +40,7 @@ export const GrupoGrid = ({ grupos }: Props) => {
           <GrupoCard key={grupo.url} titulo={grupo.nombre} descripcion={grupo.descripcion} url={grupo.url} img={grupo.imagen ?? '/wpp.jpg'} tipo={grupo.tipo} />
         ))}
       </div>
+      {!isSearching && <Paginacion totalPaginas={totalPaginas} />}
     </div>
 
     // <div className='grid grid-cols-2 sm:grid-cols-3 gap-10 m-10 p-3'>

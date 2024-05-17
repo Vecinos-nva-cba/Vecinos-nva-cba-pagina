@@ -41,10 +41,10 @@ export default async function ProfesionalPage({ params }: Props) {
         <h1 className="text-2xl md:text-3xl font-bold mb-4">
           {profesional.nombre} {profesional.apellido}
         </h1>
-        <h2 className="text-xl md:text-2xl font-bold mb-2">
+        <h2 className="text-xl md:text-2xl font-bold mb-2 md:mb-0">
           Trabajo que realizo:
         </h2>
-        <div className="flex justify-start md:my-4">
+        <div className="flex justify-start md:my-3">
           {profesional.trabajo.map((trabajo) => (
             <span
               key={trabajo}
@@ -58,9 +58,9 @@ export default async function ProfesionalPage({ params }: Props) {
           <h1 className="font-bold">Mi telefono es:</h1>
           <span className="ml-2"> {profesional.numero}</span>
         </div>
-        {profesional.redes && (
+        {profesional.redes.length > 0 && (
           <div className="flex flex-row items-center mt-5">
-            <h1 className="mr-3 font-bold">Mis redes son:</h1>
+            <h1 className="mr-3 font-bold">Mis redes:</h1>
             {profesional.redes.map((red) => (
               <Link href={red.url} key={red.url} passHref>
                 {red.tipo === "Instagram" && (

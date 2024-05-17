@@ -71,3 +71,4 @@ model Red {
   Lugar   Lugar?  @relation(fields: [lugarId], references: [id])
   lugarId String?
 }
+

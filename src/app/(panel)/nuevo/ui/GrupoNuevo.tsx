@@ -1,72 +1,141 @@
-import React from 'react';
+"use client";
+import { crearGrupo } from "@/actions";
+import { useRouter, redirect } from "next/navigation";
+import React from "react";
+import { useForm } from "react-hook-form";
+
+interface inputFormulario {
+  nombre: string;
+  tipo: string;
+  url: string;
+  descripcion: string;
+  imagen: string;
+}
 
 const GrupoNuevo = () => {
+  const router = useRouter();
+  const {
+    handleSubmit,
+    register,
+    formState: { isValid },
+    getValues,
+    setValue,
+    watch, //Le dice cuando se tiene que volver a renderizar en caso de que haya alñgun cambio en el formulario
+  } = useForm<inputFormulario>({
+    defaultValues: {
+      imagen: undefined,
+    },
+  });
+
+  const onSubmit = async (data: inputFormulario) => {
+    console.log("Datos del formulario:", data); // Agregar esta línea
+    const formData = new FormData();
+
+    const { ...grupoAGuardar } = data;
+    formData.append("nombre", grupoAGuardar.nombre);
+    formData.append("tipo", grupoAGuardar.tipo);
+    formData.append("url", grupoAGuardar.url);
+    formData.append("descripcion", grupoAGuardar.descripcion);
+    formData.append("imagen", grupoAGuardar.imagen);
+
+    const { ok, grupo: grupoCreado } = await crearGrupo(formData);
+
+    if (!ok) {
+      alert("No se pudo crear el grupo");
+      return;
+    }
+    alert("Grupo creado con exito");
+  };
+
   return (
     <div className="min-h-screen  p-0 ">
       <div className="mx-auto max-w-md px-6 py-12 bg-white border-0 shadow-lg rounded-3xl">
         <h1 className="text-2xl font-bold mb-8">Nuevo grupo</h1>
-        <form id="form" noValidate>
+        <form id="form" noValidate onSubmit={handleSubmit(onSubmit)}>
           <div className="relative z-0 w-full mb-5">
             <input
               type="text"
-              name="nombre"
-              placeholder=" "
-              required
+              placeholder="Nombre"
+              {...register("nombre", { required: true })}
               className="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
             />
-            <label htmlFor="nombre" className="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Nombre</label>
-            <span className="text-sm text-red-600 hidden" id="error">El nombre es obligatorio</span>
+            <label
+              htmlFor="nombre"
+              className="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"
+            ></label>
+            <span className="text-sm text-red-600 hidden" id="error">
+              El nombre es obligatorio
+            </span>
           </div>
 
           <div className="relative z-0 w-full mb-5">
             <input
               type="text"
-              name="tipo"
-              placeholder=" "
-              required
+              placeholder="Tipo"
+              {...register("tipo", { required: true })}
               className="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
             />
-            <label htmlFor="tipo" className="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Tipo</label>
-            <span className="text-sm text-red-600 hidden" id="error">El tipo es obligatorio</span>
+            <label
+              htmlFor="tipo"
+              className="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"
+            ></label>
+            <span className="text-sm text-red-600 hidden" id="error">
+              El tipo es obligatorio
+            </span>
           </div>
 
           <div className="relative z-0 w-full mb-5">
             <input
               type="text"
-              name="link"
-              placeholder=" "
-              required
+              placeholder="Enlace"
+              {...register("url", { required: true })}
               className="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
             />
-            <label htmlFor="link" className="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Enlace</label>
-            <span className="text-sm text-red-600 hidden" id="error">El enlace es obligatorio</span>
+            <label
+              htmlFor="link"
+              className="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"
+            ></label>
+            <span className="text-sm text-red-600 hidden" id="error">
+              La url es obligatoria
+            </span>
           </div>
 
           <div className="relative z-0 w-full mb-5">
             <textarea
-              name="descripcion"
-              placeholder=" "
-              required
+              placeholder="Descripcion"
+              {...register("descripcion", { required: true })}
               className="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
             />
-            <label htmlFor="descripcion" className="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Descripcion</label>
-            <span className="text-sm text-red-600 hidden" id="error">La descripción es obligatoria</span>
+            <label
+              htmlFor="descripcion"
+              className="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"
+            ></label>
+            <span className="text-sm text-red-600 hidden" id="error">
+              La descripción es obligatoria
+            </span>
           </div>
 
           <div className="relative z-0 w-full">
+            <label
+              htmlFor="imagen"
+              className="absolute top-0 left-0 duration-300 text-gray-500 font-bold"
+            >
+              Imagen del grupo
+            </label>
             <input
               type="file"
-              name="imagen"
               accept="image/*"
-              required
-              className="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
+              {...register("imagen")}
+              className="pt-8 pb-2 block w-full px-0 mt-6 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
             />
-            <label htmlFor="imagen" className="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"></label>
-            <span className="text-sm text-red-600 hidden" id="error">La imagen es obligatoria</span>
+            <span className="text-sm text-red-600 hidden" id="error">
+              La imagen es obligatoria
+            </span>
           </div>
 
           <button
             type="submit"
+            disabled={!isValid}
             className="w-full px-6 py-3 mt-3 text-lg text-white transition-all duration-150 ease-linear rounded-lg shadow outline-none bg-sky-500 hover:bg-sky-600 hover:shadow-lg focus:outline-none"
           >
             Registrar

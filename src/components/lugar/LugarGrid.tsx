@@ -1,14 +1,16 @@
 'use client'
-import React, { useState } from 'react';
+import React, { use, useState } from 'react';
 import { Lugar } from '@/interfaces';
-import { LugarCard } from '..';
+import { LugarCard, Paginacion } from '..';
 
 interface Props {
   lugares: Lugar[];
+  totalPaginas: number
 }
 
-export const LugarGrid = ({ lugares }: Props) => {
+export const LugarGrid = ({ lugares, totalPaginas }: Props) => {
   const [searchText, setSearchText] = useState('');
+  const [isSearching, setIsSearching] = useState(false)
 
   const filteredLugares = lugares.filter((lugar) =>
     lugar.nombre.toLowerCase().includes(searchText.toLowerCase()) ||
@@ -16,7 +18,9 @@ export const LugarGrid = ({ lugares }: Props) => {
   );
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchText(event.target.value);
+    const value = event.target.value;
+    setSearchText(value);
+    setIsSearching(value.length > 0);
   };
 
   return (
@@ -36,6 +40,7 @@ export const LugarGrid = ({ lugares }: Props) => {
           <LugarCard key={lugar.nombre + lugar.zona} lugar={lugar} />
         ))}
       </div>
+      {!isSearching && <Paginacion totalPaginas={totalPaginas} />}
     </div>
   );
 };

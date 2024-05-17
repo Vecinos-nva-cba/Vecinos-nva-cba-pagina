@@ -1,6 +1,7 @@
 
 
 export * from './grupo/get-grupo-paginacion'
+export * from './grupo/crear-grupo'
 export * from './profesional/get-profecional-paginacion'
 export * from './lugar/get-lugar-paginacion'
 export * from './profesional/get-profesional-con-nombre'

@@ -13,8 +13,8 @@ export default async function LugaresPage({searchParams}: Props) {
   const {lugares, totalPaginas, currentPage} = await getLugarPaginacion({pagina})
   return (
     <div>
-      <LugarGrid lugares={lugares}/>
-      <Paginacion totalPaginas={totalPaginas}/>
+      <LugarGrid lugares={lugares} totalPaginas={totalPaginas}/>
+      
     </div>
   );
 }

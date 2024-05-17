@@ -1,16 +1,12 @@
-import React from "react";
-import SwiperCore from "swiper";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination } from 'swiper/modules';
+'use client'
 
-// Import Swiper styles
+import React from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import "swiper/css/pagination";
 
 import "./swipper.css";
 import { Card } from "./Card";
-
-SwiperCore.use([Pagination]);
+import Image from "next/image";
 
 interface Card {
   titulo: string;
@@ -25,7 +21,16 @@ interface Props {
 
 export const SwipperCard: React.FC<Props> = ({ cards }) => {
   return (
-    <Swiper pagination={true} className="mySwiper">
+    <Swiper
+      pagination={true}
+      className="mySwiper"
+      slidesPerView={1} // Mostrar 3 tarjetas a la vez en escritorio
+      breakpoints={{
+        768: {
+          slidesPerView: 3, // Mostrar 1 tarjeta a la vez en dispositivos móviles
+        },
+      }}
+    >
       {cards.map((card, index) => (
         <SwiperSlide key={index}>
           <Card
@@ -34,6 +39,7 @@ export const SwipperCard: React.FC<Props> = ({ cards }) => {
             url={card.url}
             img={card.img}
           />
+          {/* <Image src='/wpp.jpg' alt="Foto" width={100} height={100}/> */}
         </SwiperSlide>
       ))}
     </Swiper>

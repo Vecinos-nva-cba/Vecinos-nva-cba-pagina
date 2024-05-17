@@ -13,8 +13,8 @@ export default async function ProfesionalesPage({searchParams}: Props) {
   const {profesionales, totalPaginas, currentPage} = await getProfesionalPaginacion({pagina})
   return (
     <div>
-      <ProfesionalGrid profesionales={profesionales}/>
-      <Paginacion totalPaginas={totalPaginas}/>
+      <ProfesionalGrid profesionales={profesionales} totalPaginas={totalPaginas}/>
+      
     </div>
   );
 }

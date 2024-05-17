@@ -15,8 +15,8 @@ export default async function GruposPage({searchParams}: Props) {
   // console.log({ totalPaginas, currentPage})
   return (
     <>
-      <GrupoGrid grupos={grupos}/>
-      <Paginacion totalPaginas={totalPaginas}/>
+      <GrupoGrid grupos={grupos} totalPaginas={totalPaginas}/>
+      
     </>
   );
 }

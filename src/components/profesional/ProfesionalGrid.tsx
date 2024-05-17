@@ -1,14 +1,16 @@
 'use client'
 import { Profesional } from "@/interfaces";
-import { ProfesionalCard } from "..";
+import { Paginacion, ProfesionalCard } from "..";
 import { useState } from "react";
 
 interface Props {
   profesionales: Profesional[];
+  totalPaginas: number
 }
 
-export const ProfesionalGrid = ({ profesionales }: Props) => {
+export const ProfesionalGrid = ({ profesionales, totalPaginas }: Props) => {
   const [searchText, setSearchText] = useState('');
+  const [isSearching, setIsSearching] = useState(false)
 
   const filteredProfesional = profesionales.filter((profesional) =>
   profesional.nombre.toLowerCase().includes(searchText.toLowerCase()) ||
@@ -18,7 +20,9 @@ export const ProfesionalGrid = ({ profesionales }: Props) => {
   );
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchText(event.target.value);
+    const value = event.target.value;
+    setSearchText(value);
+    setIsSearching(value.length > 0);
   };
   return (
 
@@ -38,6 +42,7 @@ export const ProfesionalGrid = ({ profesionales }: Props) => {
           <ProfesionalCard key={profesional.numero} profesional={profesional} />
         ))}
       </div>
+      {!isSearching && <Paginacion totalPaginas={totalPaginas} />}
     </div>
 
     // <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 m-8">

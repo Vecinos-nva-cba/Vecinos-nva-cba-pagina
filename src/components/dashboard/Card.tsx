@@ -6,9 +6,10 @@ interface Props {
     url: string
     tipo?: string
     img: string
+    className?: string
 }
 
-export const Card = ({titulo, descripcion, url ,tipo ,img}:Props) => {
+export const Card = ({titulo, descripcion, url ,tipo ,img, className}:Props) => {
   return (
     <div>
       <div className="relative flex w-96 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md border-2 border-gray-300">

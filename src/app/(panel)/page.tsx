@@ -7,9 +7,13 @@ import { getGrupoPaginacion } from "@/actions";
 import { getGrupoById } from "@/actions/grupo/get-grupo-by-id";
 import { SwipperCard } from "@/components/dashboard/SwipperCard";
 
-export default async function  PanelPage() {
-  const grupo1  = await getGrupoById('105067ea-0252-44f7-9ae3-c7941a596864')
-  console.log(grupo1)
+
+
+
+export default async function PanelPage() {
+
+  const grupo1 = await getGrupoById("105067ea-0252-44f7-9ae3-c7941a596864");
+  console.log(grupo1);
   const cards = [
     {
       titulo: "Trabajo",
@@ -25,14 +29,15 @@ export default async function  PanelPage() {
     },
     {
       titulo: "Estudio",
-      descripcion: "Grupo destinado a compartir recursos de estudio y aprendizaje.",
+      descripcion:
+        "Grupo destinado a compartir recursos de estudio y aprendizaje.",
       url: "/grupo/123",
       img: "/wpp.jpg",
     },
     // Agrega más tarjetas si es necesario
   ];
   return (
-    <div>
+    <div className="container mx-auto ">
       <div className="relative w-full h-full">
         <div className="absolute inset-0 bg-black opacity-80"></div>
         {/* Fondo oscuro semi-transparente */}
@@ -63,32 +68,13 @@ export default async function  PanelPage() {
           Grupos mas destacados
         </h1>
       </div>
-      
 
       
-      <div className="ml-10 my-10 flex">
-        <div className="flex flex-row gap-4 items-center justify-center mg:flex-rows-2 lg:flex-rows-3 ">
-          {/* <Card
-            titulo="Trabajo"
-            descripcion="Grupo para compartir empleos de trabajo"
-            url="/grupo/123"
-            img="/wpp.jpg"
-          />
-          <Card
-            titulo="Venta"
-            descripcion="Espacio para compartir consejos y estrategias de ventas."
-            url="/grupo/123"
-            img="/wpp.jpg"
-          />
-          <Card
-            titulo="Estudio"
-            descripcion="Grupo destinado a compartir recursos de estudio y aprendizaje."
-            url="/grupo/123"
-            img="/wpp.jpg"
-          /> */}
-          <SwipperCard cards={cards}/>
-        </div>
+      <div className="flex flex-wrap justify-center m-8 ">
+        <SwipperCard cards={cards} />
       </div>
+
+
 
       <div className=" bg-gray-600 py-10 flex flex-col  justify-start pl-10 pr-10 w-full">
         <h2 className="flex  text-xl lg:text-2xl text-sky-500 font-bold mb-2">
@@ -102,7 +88,7 @@ export default async function  PanelPage() {
           ejemplo Contenido aquí, contenido aquí. Estos textos hacen
         </p>
       </div>
-      <div className="flex">
+      <div className="flex w-full ">
         <h1
           className={`flex justify-center items-center bg-sky-500 w-full relative py-5 text-xl lg:text-4xl ${fontTitulo.className}`}
         >
@@ -128,7 +114,6 @@ export default async function  PanelPage() {
           descripcion="Grupo destinado a compartir recursos de estudio y aprendizaje."
           url="/grupo/123"
           img="/6.jpg"
-          
         />
       </div>
     </div>
