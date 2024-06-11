@@ -18,12 +18,12 @@ const GrupoSchema = z.object({
 
 export const crearGrupo = async (formData: FormData) => {
     try {
-        const data = Object.fromEntries(formData);
-        //console.log("Datos del formulario:", data);
+        const data = Object.fromEntries(formData.entries());
+        console.log("Datos del formulario:", data);
 
         const grupoValidado = GrupoSchema.safeParse(data);
         if (!grupoValidado.success) {
-            //console.error("Errores de validación:", grupoValidado.error);
+            console.error("Errores de validación:", grupoValidado.error);
             return { ok: false };
         }
 
@@ -38,15 +38,15 @@ export const crearGrupo = async (formData: FormData) => {
                 },
             });
 
-            if (formData.getAll("imagen")) {
-                const imagen = formData.get("imagen") as File;
+            const imagen = formData.get("imagen") as File;
+            if (imagen) {
                 const urlImagen = await cargarImagen(imagen);
 
                 if (!urlImagen) {
                     throw new Error("No se pudo cargar la imagen del grupo");
                 }
 
-                await prisma.grupo.update({
+                grupo = await prisma.grupo.update({
                     where: { id: grupo.id },
                     data: { imagen: urlImagen },
                 });
@@ -55,7 +55,7 @@ export const crearGrupo = async (formData: FormData) => {
             return { grupo };
         });
 
-        //console.log("Grupo creado:", transsaccionPrisma.grupo);
+        console.log("Grupo creado:", transsaccionPrisma.grupo);
 
         return {
             ok: true,
@@ -72,15 +72,18 @@ export const crearGrupo = async (formData: FormData) => {
 
 
 
-
 const cargarImagen = async (imagen: File) => {
     try {
-      const buffer = await imagen.arrayBuffer();
-      const base64Imagen = Buffer.from(buffer).toString("base64");
-      const resultado = await cloudinary.uploader.upload(`data:image/png;base64,${base64Imagen}`);
-      return resultado.secure_url;
+        const buffer = await imagen.arrayBuffer()
+        const base64Imagen = Buffer.from(buffer).toString('base64') // Crear un string base64
+
+        const respuesta = await cloudinary.uploader.upload(`data:image/png;base64,${base64Imagen}`, {
+            folder: "grupos", // Opcional: especificar una carpeta en Cloudinary
+        })
+
+        return respuesta.secure_url
     } catch (error) {
-      console.error(error);
-      return null;
+        console.log(error)
+        return null
     }
-  };
+}

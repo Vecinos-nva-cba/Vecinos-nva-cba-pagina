@@ -3,13 +3,14 @@ import { crearGrupo } from "@/actions";
 import { useRouter, redirect } from "next/navigation";
 import React from "react";
 import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
 
 interface inputFormulario {
   nombre: string;
   tipo: string;
   url: string;
   descripcion: string;
-  imagen: string;
+  imagen: FileList;
 }
 
 const GrupoNuevo = () => {
@@ -20,6 +21,7 @@ const GrupoNuevo = () => {
     formState: { isValid },
     getValues,
     setValue,
+    reset,
     watch, //Le dice cuando se tiene que volver a renderizar en caso de que haya alñgun cambio en el formulario
   } = useForm<inputFormulario>({
     defaultValues: {
@@ -36,20 +38,35 @@ const GrupoNuevo = () => {
     formData.append("tipo", grupoAGuardar.tipo);
     formData.append("url", grupoAGuardar.url);
     formData.append("descripcion", grupoAGuardar.descripcion);
-    formData.append("imagen", grupoAGuardar.imagen);
+    if (data.imagen.length > 0) {
+      formData.append("imagen", data.imagen[0]);
+    }
 
     const { ok, grupo: grupoCreado } = await crearGrupo(formData);
 
     if (!ok) {
-      alert("No se pudo crear el grupo");
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "No se pudo crear el grupo",
+      });
       return;
     }
-    alert("Grupo creado con exito");
+
+    // Resetea el formulario
+    reset();
+
+    // Muestra una alerta de éxito
+    Swal.fire({
+      icon: "success",
+      title: "Éxito",
+      text: "Grupo creado con éxito",
+    });
   };
 
   return (
-    <div className="min-h-screen  p-0 ">
-      <div className="mx-auto max-w-md px-6 py-12 bg-white border-0 shadow-lg rounded-3xl">
+    <div className="min-h-screen  px-6 ">
+      <div className="mx-auto max-w-md px-6 py-10 bg-white border-0 shadow-lg rounded-3xl">
         <h1 className="text-2xl font-bold mb-8">Nuevo grupo</h1>
         <form id="form" noValidate onSubmit={handleSubmit(onSubmit)}>
           <div className="relative z-0 w-full mb-5">

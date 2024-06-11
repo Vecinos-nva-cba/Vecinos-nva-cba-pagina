@@ -4,8 +4,8 @@ import { IoLogoInstagram, IoLogoTwitch } from "react-icons/io5";
 
 export default function NosotrosPage() {
   return (
-    <div className="flex flex-col md:flex-row justify-center items-center md:items-start">
-      <div className="p-5 md:p-10 m-5 md:m-10 flex-shrink-0">
+    <div className="flex flex-col h-[700px] md:min-h-screen md:flex-row justify-center items-center ">
+      <div className="p-5 md:p-10 m-3 md:m-10 flex-shrink-0 flex justify-center items-center">
         <Image
           src={"/logo-vncba.png"}
           alt="Foto"

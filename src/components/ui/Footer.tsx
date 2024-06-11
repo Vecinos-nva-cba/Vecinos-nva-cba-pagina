@@ -1,4 +1,6 @@
-import Link from "next/link";
+'use client'
+import Link from 'next/link';
+import Image from 'next/image';
 import React from "react";
 
 const Footer = () => {
@@ -6,10 +8,10 @@ const Footer = () => {
     <div>
       <div className="w-full  flex items-center justify-center bg-sky-500">
         <div className="md:w-2/3 w-full px-4 text-white flex flex-col">
-          <div className="flex flex-col">
-            <div className="flex mt-24 mb-12 flex-row justify-between">
-              <Link href={'/'} className="">
-                <svg
+          <div className="flex flex-col mt-8 md:mt-0">
+            <div className="flex  md:my-10 mb-5  flex-row justify-center  gap-12 md:justify-between">
+              <Link href={"/"} className="">
+                {/* <svg
                   version="1.1"
                   id="Layer_1"
                   xmlns="http://www.w3.org/2000/svg"
@@ -26,43 +28,51 @@ const Footer = () => {
                   <image
                     xlinkHref="/logo.svg"
                     width="906"
-                    height="275"
+                    height="400"
                     x="0"
                     y="0"
                   />
-                </svg>
+                </svg> */}
+                <Image
+                  src="/logo.svg" // Ruta del SVG en la carpeta `public`
+                  alt="Descripción del icono"
+                  width={150} // Ancho deseado
+                  height={150} // Alto deseado
+                />
               </Link>
-              <Link
-                href={"/nosotros"}
-                className="hidden md:block cursor-pointer text-gray-600 hover:text-white uppercase"
-              >
-                Sobre nosotros
-              </Link>
-              <Link
-                href={"/grupos"}
-                className="hidden md:block cursor-pointer text-gray-600 hover:text-white uppercase"
-              >
-                Grupos
-              </Link>
-              <Link
-                href={"/profesionales"}
-                className="hidden md:block cursor-pointer text-gray-600 hover:text-white uppercase"
-              >
-                Profesionales
-              </Link>
-              <Link
-                href={"/lugares"}
-                className="hidden md:block cursor-pointer text-gray-600 hover:text-white uppercase"
-              >
-                Lugares
-              </Link>
-              <Link
-                href={"/nuevo"}
-                className="hidden md:block cursor-pointer text-gray-600 hover:text-white uppercase"
-              >
-                Registrar nuevo
-              </Link>
-              <div className="flex flex-row space-x-8 items-center justify-between">
+              <div className="hidden md:flex-row  md:flex md:items-center md: justify-center md:gap-4">
+                <Link
+                  href={"/nosotros"}
+                  className="cursor-pointer text-center text-gray-600 hover:text-white uppercase"
+                >
+                  Sobre nosotros
+                </Link>
+                <Link
+                  href={"/grupos"}
+                  className="cursor-pointer text-gray-600 hover:text-white uppercase"
+                >
+                  Grupos
+                </Link>
+                <Link
+                  href={"/profesionales"}
+                  className="cursor-pointer text-gray-600 hover:text-white uppercase"
+                >
+                  Profesionales
+                </Link>
+                <Link
+                  href={"/lugares"}
+                  className="cursor-pointer text-gray-600 hover:text-white uppercase"
+                >
+                  Lugares
+                </Link>
+                <Link
+                  href={"/nuevo"}
+                  className="cursor-pointer text-center text-gray-600 hover:text-white uppercase"
+                >
+                  Registrar nuevo
+                </Link>
+              </div>
+              <div className="flex flex-row space-x-8 items-center md:justify-between">
                 <Link href={"/"}>
                   <svg
                     width="6"
@@ -116,7 +126,7 @@ const Footer = () => {
               </div>
             </div>
             <hr className="border-gray-600" />
-            <p className="w-full text-center my-12 text-gray-600">
+            <p className="w-full text-center my-4 md:my-8 text-gray-600">
               Vecinos nueva cordoba ®
             </p>
           </div>
