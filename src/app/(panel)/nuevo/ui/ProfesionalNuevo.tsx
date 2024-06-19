@@ -14,12 +14,12 @@ interface inputFormulario {
   trabajo: string[];
   numero: string;
   imagen: File[];
-  redes: string[];
+  redes: { tipo: string, url: string }[];
 }
 
 const ProfesionalNuevo = () => {
   // Estado para almacenar las redes sociales seleccionadas
-  const [redesSociales, setRedesSociales] = useState([]);
+  const [redesSociales, setRedesSociales] = useState<{ tipo: string, url: string }[]>([]);
   // Estado para controlar la visibilidad del campo de entrada de URL para cada red social
   const [mostrarCamposUrl, setMostrarCamposUrl] = useState({});
   const [fotos, setFotos] = useState<File[]>([]);
@@ -37,8 +37,8 @@ const ProfesionalNuevo = () => {
     watch, //Le dice cuando se tiene que volver a renderizar en caso de que haya alñgun cambio en el formulario
   } = useForm<inputFormulario>({
     defaultValues: {
-      imagen: undefined,
-      redes: undefined,
+      imagen: [],
+      redes: [],
       trabajo: [],
     },
   });
@@ -149,13 +149,20 @@ const ProfesionalNuevo = () => {
     // redesSociales.forEach((redSocial) => {
     //   console.log(`URL de ${redSocial}:`, getValues(`url-${redSocial}`));
     // });
-    if (redesSociales.length > 0) {
-      redesSociales.forEach((redSocial) => {
-        const url = getValues(`url-${redSocial}`);
-        formData.append(`redes[${redSocial}]`, url); // Agregar la URL de la red social al FormData
-        formData.append(`redesTipo[${redSocial}]`, redSocial); // Agregar el tipo de red social al FormData
-      });
-    }
+    // if (redesSociales.length > 0) {
+    //   redesSociales.forEach((redSocial) => {
+    //     const url = getValues(`url-${redSocial}`);
+    //     formData.append(`redes[${redSocial}]`, url); // Agregar la URL de la red social al FormData
+    //     formData.append(`redesTipo[${redSocial}]`, redSocial); // Agregar el tipo de red social al FormData
+    //   });
+    // }
+
+    const redes = redesSociales.map(({ tipo, url }) => ({
+      tipo,
+      url,
+    }));
+    formData.append("redes", JSON.stringify(redes));
+
     formData.append("nombre", data.nombre);
     formData.append("apellido", data.apellido);
     formData.append("numero", data.numero);

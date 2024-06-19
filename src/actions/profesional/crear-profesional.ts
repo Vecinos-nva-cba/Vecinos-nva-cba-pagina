@@ -30,20 +30,28 @@ const ProfesionalSchema = z.object({
 });
 
 export const crearProfesional = async (formData: FormData) => {
+  
   // console.log("Datos del formulario en el backend:");
   //   for (let [key, value] of formData.entries()) {
   //     console.log(`${key}: ${value}`);
   //   }
+
   try {
     const trabajos = formData.getAll("trabajo").map((t) => t as string);
-    const redes = [];
+    // const redes = [];
 
-    for (const [key, value] of Object.entries(formData)) {
-      {
-        const tipo = key.replace("redes[", "").replace("]", "");
-        redes.push({ url: value, tipo });
+    // for (const [key, value] of Object.entries(formData)) {
+    //   {
+    //     const tipo = key.replace("redes[", "").replace("]", "");
+    //     redes.push({ url: value, tipo });
+    //   }
+    // }
+    const redes = formData.redes.map((red) => ({
+      connectOrCreate: {
+        where: { url: red.url },
+        create: { url: red.url, tipo: red.tipo },
       }
-    }
+    }));
 
     const profesionalData = {
       nombre: formData.get("nombre") as string,
