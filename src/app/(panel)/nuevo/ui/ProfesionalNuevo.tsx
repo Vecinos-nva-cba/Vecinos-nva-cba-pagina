@@ -68,7 +68,7 @@ const ProfesionalNuevo = () => {
       });
     } else {
       // Si la red social no está seleccionada, la agregamos al array
-      setRedesSociales([...redesSociales, redSocial]);
+      setRedesSociales([...redesSociales, { tipo: redSocial, url: '' }]);
       // Mostramos el campo de entrada de URL de esa red social
       setMostrarCamposUrl({
         ...mostrarCamposUrl,
@@ -143,8 +143,9 @@ const ProfesionalNuevo = () => {
       formData.append(`trabajo[${index}]`, trabajo)
     );
 
-    const imagen = getValues("imagen");
-    formData.append("imagen", imagen);
+    if (fotos.length > 0) {
+      fotos.forEach((foto, index) => formData.append(`imagen[${index}]`, foto));
+    }
 
     // redesSociales.forEach((redSocial) => {
     //   console.log(`URL de ${redSocial}:`, getValues(`url-${redSocial}`));
@@ -157,11 +158,9 @@ const ProfesionalNuevo = () => {
     //   });
     // }
 
-    const redes = redesSociales.map(({ tipo, url }) => ({
-      tipo,
-      url,
-    }));
-    formData.append("redes", JSON.stringify(redes));
+    redesSociales.forEach(({ tipo, url }) => {
+      formData.append('redes[]', JSON.stringify({ tipo, url }));
+    });
 
     formData.append("nombre", data.nombre);
     formData.append("apellido", data.apellido);

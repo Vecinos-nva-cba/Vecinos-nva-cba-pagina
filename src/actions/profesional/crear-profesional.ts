@@ -46,12 +46,7 @@ export const crearProfesional = async (formData: FormData) => {
     //     redes.push({ url: value, tipo });
     //   }
     // }
-    const redes = formData.redes.map((red) => ({
-      connectOrCreate: {
-        where: { url: red.url },
-        create: { url: red.url, tipo: red.tipo },
-      }
-    }));
+    const redes = JSON.parse(formData.getAll("redes[]").map((r) => r as string));
 
     const profesionalData = {
       nombre: formData.get("nombre") as string,
