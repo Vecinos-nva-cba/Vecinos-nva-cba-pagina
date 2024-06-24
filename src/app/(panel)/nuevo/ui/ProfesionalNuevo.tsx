@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { useRouter, redirect } from "next/navigation";
 import { crearProfesional } from "@/actions";
 import Image from "next/image";
+import { useJob } from "@/hooks/useJob";
 
 const Redes = ["Instagram", "Facebook", "Twitter", "Linkedin", "Web"];
 interface inputFormulario {
@@ -18,6 +19,7 @@ interface inputFormulario {
 }
 
 const ProfesionalNuevo = () => {
+  // const { onChangue, onSubmit, nuevoTrabajo} = useJob()
   // Estado para almacenar las redes sociales seleccionadas
   const [redesSociales, setRedesSociales] = useState<
     { tipo: string; url: string }[]
@@ -44,7 +46,6 @@ const ProfesionalNuevo = () => {
       trabajo: [],
     },
   });
-  
 
   // Manejador de cambio para la selección de la red social
   const handleRedSocialChange = (event) => {
@@ -158,7 +159,6 @@ const ProfesionalNuevo = () => {
     redesSociales.forEach(({ tipo, url }) => {
       formData.append("redes", JSON.stringify({ tipo, url }));
     });
-    
 
     formData.append("nombre", data.nombre);
     formData.append("apellido", data.apellido);
