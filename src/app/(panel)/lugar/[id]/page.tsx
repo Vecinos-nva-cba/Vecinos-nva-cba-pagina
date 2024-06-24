@@ -44,8 +44,8 @@ export default async function LugarPage({ params }: Props) {
           <h1 className="text-xl md:text-2xl font-bold">{lugar?.nombre}</h1>
         </div>
         <div className="flex flex-row items-center mt-5">
-          <h2 className="font-bold">Zona:</h2>
-          <span className="ml-2">{lugar.zona}</span>
+          <h2 className="font-bold">Barrio o zona:</h2>
+          <span className="ml-2">{lugar?.barrio}</span>
         </div>
 
         <h2 className="text-xl md:text-2xl font-bold mt-2 mb-3 md:mb-0 md:ml-0">

@@ -31,22 +31,22 @@ model Grupo {
 }
 
 model Profesional {
-  id              Int              @id @default(autoincrement())
-  nombre          String
-  apellido        String
-  numero          String
-  trabajo         String[]
-  redesSociales   RedSocial[]
-  imagen          Imagen[]
+  id            String      @id @default(uuid())
+  nombre        String
+  apellido      String
+  numero        String
+  trabajo       String[]
+  redesSociales RedSocial[]
+  imagen        Imagen[]
 }
 
 model Lugar {
-  id           String   @id @default(uuid())
+  id           String      @id @default(uuid())
   nombre       String
-  zona         String
+  barrio       String
   tipo         String[]
-  imagenes     String[]
-  redes        RedSocial []
+  imagenes     Imagen[]
+  redes        RedSocial[]
   localizacion String?
 
   direccion Direccion[]
@@ -61,20 +61,24 @@ model Direccion {
   lugarId String
 }
 
-model RedSocial  {
+model RedSocial {
   url  String @id
   tipo Redes
 
-  profesionalId  Int
-  Profesional    Profesional  @relation(fields: [profesionalId], references: [id])
+  profesionalId String
+  Profesional   Profesional @relation(fields: [profesionalId], references: [id])
 
   Lugar   Lugar?  @relation(fields: [lugarId], references: [id])
   lugarId String?
 }
-model Imagen {
-  id             Int          @id @default(autoincrement())
-  url            String
-  profesionalId  Int
-  Profesional    Profesional  @relation(fields: [profesionalId], references: [id])
-}
 
+model Imagen {
+  id            String         @id @default(uuid())
+  url           String
+
+  profesionalId String
+  Profesional   Profesional @relation(fields: [profesionalId], references: [id])
+
+  lugarId String 
+  Lugar Lugar @relation(fields: [lugarId], references: [id])
+}

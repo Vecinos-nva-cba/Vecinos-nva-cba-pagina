@@ -8,7 +8,7 @@ interface Props {
 }
 
 export const LugarCard = ({ lugar }: Props) => {
-  const { nombre, zona, direccion, tipo, imagenes, redes } = lugar;
+  const { nombre, barrio, direccion, tipo, imagenes, redes } = lugar;
 
   return (
     <div>
@@ -25,13 +25,13 @@ export const LugarCard = ({ lugar }: Props) => {
             {nombre} {/* Destacar el nombre */}
           </h5>
           <p className="block font-sans text-sm font-medium text-gray-500 uppercase mb-2">
-            Zona: {zona} {/* Destacar la zona */}
+            Barrio: {barrio} {/* Destacar la zona */}
           </p>
           <p className="block font-sans text-sm font-medium text-gray-500 mb-4">
             Dirección: {direccion.map(direccion => `${direccion.calle} ${direccion.altura}`).join(', ')} {/* Destacar la dirección */}
           </p>
           <p className="block font-sans text-base font-light leading-relaxed text-inherit antialiased">
-            {zona}
+            {barrio}
           </p>
         </div>
         {tipo && (

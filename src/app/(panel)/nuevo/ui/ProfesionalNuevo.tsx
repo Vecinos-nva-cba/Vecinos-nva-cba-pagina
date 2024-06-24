@@ -14,12 +14,14 @@ interface inputFormulario {
   trabajo: string[];
   numero: string;
   imagen: File[];
-  redes: { tipo: string, url: string }[];
+  redes: { tipo: string; url: string }[];
 }
 
 const ProfesionalNuevo = () => {
   // Estado para almacenar las redes sociales seleccionadas
-  const [redesSociales, setRedesSociales] = useState<{ tipo: string, url: string }[]>([]);
+  const [redesSociales, setRedesSociales] = useState<
+    { tipo: string; url: string }[]
+  >([]);
   // Estado para controlar la visibilidad del campo de entrada de URL para cada red social
   const [mostrarCamposUrl, setMostrarCamposUrl] = useState({});
   const [fotos, setFotos] = useState<File[]>([]);
@@ -42,17 +44,11 @@ const ProfesionalNuevo = () => {
       trabajo: [],
     },
   });
-  // useEffect(() => {
-  //   console.log("Trabajos actualizados:", trabajos);
-  // }, [trabajos]);
+  
 
   // Manejador de cambio para la selección de la red social
   const handleRedSocialChange = (event) => {
     const redSocial = event.target.value;
-    //console.log("Red social seleccionada:", redSocial);
-
-    // Verificar si el campo de URL se está registrando correctamente
-    //console.log("Campo de URL registrado:", register(`url-${redSocial}`));
 
     // Verificar si la red social ya está seleccionada
     if (redesSociales.includes(redSocial)) {
@@ -68,7 +64,7 @@ const ProfesionalNuevo = () => {
       });
     } else {
       // Si la red social no está seleccionada, la agregamos al array
-      setRedesSociales([...redesSociales, { tipo: redSocial, url: '' }]);
+      setRedesSociales([...redesSociales, redSocial]);
       // Mostramos el campo de entrada de URL de esa red social
       setMostrarCamposUrl({
         ...mostrarCamposUrl,
@@ -139,9 +135,7 @@ const ProfesionalNuevo = () => {
       return;
     }
 
-    trabajos.forEach((trabajo, index) =>
-      formData.append(`trabajo[${index}]`, trabajo)
-    );
+    trabajos.forEach((trabajo) => formData.append("trabajo", trabajo));
 
     if (fotos.length > 0) {
       fotos.forEach((foto, index) => formData.append(`imagen[${index}]`, foto));
@@ -158,9 +152,13 @@ const ProfesionalNuevo = () => {
     //   });
     // }
 
+    // redesSociales.forEach(({ tipo, url }) => {
+    //   formData.append('redes[]', JSON.stringify({ tipo, url }));
+    // });
     redesSociales.forEach(({ tipo, url }) => {
-      formData.append('redes[]', JSON.stringify({ tipo, url }));
+      formData.append("redes", JSON.stringify({ tipo, url }));
     });
+    
 
     formData.append("nombre", data.nombre);
     formData.append("apellido", data.apellido);
@@ -245,6 +243,7 @@ const ProfesionalNuevo = () => {
           <div className="relative z-0 w-full ">
             <input
               type="text"
+              {...register("trabajo")}
               placeholder="Trabajo/s"
               required
               value={nuevoTrabajo}
@@ -326,11 +325,11 @@ const ProfesionalNuevo = () => {
                   <input
                     type="text"
                     placeholder={`Ingrese la URL de ${redSocial}`}
-                    {...register(`url-${redSocial}`)}
+                    {...register(`redes.${redSocial}.url`)}
                     className="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200 mr-3"
                   />
                   <label
-                    htmlFor={`url-${redSocial}`}
+                    htmlFor={`redes.${redSocial}.url`}
                     className="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"
                   ></label>
                   <MdClose

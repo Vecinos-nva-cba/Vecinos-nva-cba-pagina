@@ -55,7 +55,7 @@ async function main() {
       const lugar = await prisma.lugar.create({
         data: {
           nombre: seedLugar.nombre,
-          zona: seedLugar.zona,
+          barrio: seedLugar.barrio,
           tipo: seedLugar.tipo,
           imagenes: seedLugar.imagenes,
           localizacion: seedLugar.localizacion,

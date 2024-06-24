@@ -46,7 +46,8 @@ export const crearProfesional = async (formData: FormData) => {
     //     redes.push({ url: value, tipo });
     //   }
     // }
-    const redes = JSON.parse(formData.getAll("redes[]").map((r) => r as string));
+    const redes = formData.getAll("redes").map((r) => JSON.parse(r as string));
+
 
     const profesionalData = {
       nombre: formData.get("nombre") as string,
@@ -98,7 +99,7 @@ export const crearProfesional = async (formData: FormData) => {
   } catch (error) {
     return {
       ok: false,
-      mensaje: "No se pudo crear el profesional",
+      mensaje: "No se pudo crear el profesional desde backend",
     };
   }
 };

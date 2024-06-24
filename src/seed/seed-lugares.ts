@@ -5,7 +5,7 @@ interface SeedDireccion {
   
   interface SeedLugar {
     nombre: string;
-    zona: string;
+    barrio: string;
     tipo: string[];
     imagenes: string[];
     direcciones: SeedDireccion[];
@@ -27,7 +27,7 @@ interface SeedDireccion {
     lugares: [
       {
         nombre: 'Cafetería Los Amigos',
-        zona: 'Centro',
+        barrio: 'Centro',
         tipo: ['Cafetería'],
         imagenes: ['cafe-los-amigos.jpg'],
         direcciones: [{ calle: 'Calle Principal', altura: 123 }],
@@ -35,7 +35,7 @@ interface SeedDireccion {
       },
       {
         nombre: 'Parque Central',
-        zona: 'Centro',
+        barrio: 'Centro',
         tipo: ['Parque'],
         imagenes: ['parque-central.jpg'],
         direcciones: [{ calle: 'Calle avear', altura: 54563 }],
@@ -43,7 +43,7 @@ interface SeedDireccion {
       },
       {
         nombre: 'Librería El Sabio',
-        zona: 'Barrio Norte',
+        barrio: 'Barrio Norte',
         tipo: ['Librería'],
         imagenes: ['libreria-el-sabio.jpg'],
         direcciones: [{ calle: 'Avenida Libertador', altura: 456 }],
@@ -52,7 +52,7 @@ interface SeedDireccion {
       },
       {
         nombre: 'Gimnasio FitnessPlus',
-        zona: 'Barrio Sur',
+        barrio: 'Barrio Sur',
         tipo: ['Gimnasio'],
         imagenes: ['gimnasio-fitnessplus.jpg'],
         direcciones: [{ calle: 'Calle Deportiva', altura: 789 }],
@@ -61,7 +61,7 @@ interface SeedDireccion {
       },
       {
         nombre: 'Restaurante La Esquina',
-        zona: 'Barrio Este',
+        barrio: 'Barrio Este',
         tipo: ['Restaurante'],
         imagenes: ['restaurante-la-esquina.jpg'],
         direcciones: [{ calle: 'Esquina Gastronómica', altura: 1011 }],
@@ -73,7 +73,7 @@ interface SeedDireccion {
       },
       {
         nombre: 'Museo de Arte Moderno',
-        zona: 'Barrio Oeste',
+        barrio: 'Barrio Oeste',
         tipo: ['Museo'],
         imagenes: ['museo-arte-moderno.jpg'],
         direcciones: [{ calle: 'Avenida Cultural', altura: 1213 }],
@@ -81,7 +81,7 @@ interface SeedDireccion {
       },
       {
         nombre: 'Cine Los Arcos',
-        zona: 'Barrio Sur',
+        barrio: 'Barrio Sur',
         tipo: ['Cine'],
         imagenes: ['cine-los-arcos.jpg'],
         direcciones: [{ calle: 'Avenida Cinematográfica', altura: 1415 }],
@@ -89,7 +89,7 @@ interface SeedDireccion {
       },
       {
         nombre: 'Centro de Convenciones',
-        zona: 'Barrio Este',
+        barrio: 'Barrio Este',
         tipo: ['Centro de Eventos'],
         imagenes: ['centro-convenciones.jpg'],
         direcciones: [{ calle: 'Avenida de Eventos', altura: 1617 }],
@@ -98,7 +98,7 @@ interface SeedDireccion {
       },
       {
         nombre: 'Teatro Municipal',
-        zona: 'Centro',
+        barrio: 'Centro',
         tipo: ['Teatro'],
         imagenes: ['teatro-municipal.jpg'],
         direcciones: [{ calle: 'Calle Dramática', altura: 1819 }],
@@ -107,7 +107,7 @@ interface SeedDireccion {
       },
       {
         nombre: 'Parque de Diversiones',
-        zona: 'Barrio Norte',
+        barrio: 'Barrio Norte',
         tipo: ['Parque de Diversiones'],
         imagenes: ['parque-diversiones.jpg'],
         direcciones: [{ calle: 'Avenida Recreativa', altura: 2021 }],
@@ -115,7 +115,7 @@ interface SeedDireccion {
       },
       {
         nombre: 'Centro Comercial Plaza',
-        zona: 'Barrio Este',
+        barrio: 'Barrio Este',
         tipo: ['Centro Comercial'],
         imagenes: ['centro-comercial-plaza.jpg'],
         direcciones: [{ calle: 'Boulevard Comercial', altura: 2223 }],
@@ -123,7 +123,7 @@ interface SeedDireccion {
       },
       {
         nombre: 'Hospital San José',
-        zona: 'Barrio Sur',
+        barrio: 'Barrio Sur',
         tipo: ['Hospital'],
         imagenes: ['hospital-san-jose.jpg'],
         direcciones: [{ calle: 'Calle de la Salud', altura: 2425 }],
@@ -132,7 +132,7 @@ interface SeedDireccion {
       },
       {
         nombre: 'Biblioteca Municipal',
-        zona: 'Barrio Oeste',
+        barrio: 'Barrio Oeste',
         tipo: ['Biblioteca'],
         imagenes: ['biblioteca-municipal.jpg'],
         direcciones: [{ calle: 'Avenida Cultural', altura: 2627 }],
@@ -140,7 +140,7 @@ interface SeedDireccion {
       },
       {
         nombre: 'Estadio Deportivo',
-        zona: 'Barrio Norte',
+        barrio: 'Barrio Norte',
         tipo: ['Estadio'],
         imagenes: ['estadio-deportivo.jpg'],
         direcciones: [{ calle: 'Calle del Deporte', altura: 2829 }],
@@ -148,7 +148,7 @@ interface SeedDireccion {
       },
       {
         nombre: 'Plaza de la Independencia',
-        zona: 'Centro',
+        barrio: 'Centro',
         tipo: ['Plaza'],
         imagenes: ['plaza-independencia.jpg'],
         direcciones: [{ calle: 'Calle veles sarfield', altura: 698 }],
@@ -156,7 +156,7 @@ interface SeedDireccion {
       },
       {
         nombre: 'Zoológico Municipal',
-        zona: 'Barrio Sur',
+        barrio: 'Barrio Sur',
         tipo: ['Zoológico'],
         imagenes: ['zoologico-municipal.jpg'],
         direcciones: [{ calle: 'Avenida Animal', altura: 3031 }],
@@ -164,7 +164,7 @@ interface SeedDireccion {
       },
       {
         nombre: 'Piscina Olímpica',
-        zona: 'Barrio Norte',
+        barrio: 'Barrio Norte',
         tipo: ['Piscina'],
         imagenes: ['piscina-olimpica.jpg'],
         direcciones: [{ calle: 'Calle de la Natación', altura: 3233 }],
@@ -172,7 +172,7 @@ interface SeedDireccion {
       },
       {
         nombre: 'Iglesia San Miguel',
-        zona: 'Barrio Sur',
+        barrio: 'Barrio Sur',
         tipo: ['Iglesia'],
         imagenes: ['iglesia-san-miguel.jpg'],
         direcciones: [{ calle: 'Calle Religiosa', altura: 3435 }],
@@ -181,7 +181,7 @@ interface SeedDireccion {
       },
       {
         nombre: 'Cine Palace',
-        zona: 'Barrio Oeste',
+        barrio: 'Barrio Oeste',
         tipo: ['Cine'],
         imagenes: ['cine-palace.jpg'],
         direcciones: [{ calle: 'Avenida Cinéfila', altura: 3637 }],
@@ -190,7 +190,7 @@ interface SeedDireccion {
       },
       {
         nombre: 'Pizzería Don Giovanni',
-        zona: 'Barrio Este',
+        barrio: 'Barrio Este',
         tipo: ['Restaurante'],
         imagenes: ['pizzeria-don-giovanni.jpg'],
         direcciones: [{ calle: 'Avenida Gastronómica', altura: 3839 }],
@@ -198,7 +198,7 @@ interface SeedDireccion {
       },
       {
         nombre: 'Parque Acuático Splash',
-        zona: 'Barrio Sur',
+        barrio: 'Barrio Sur',
         tipo: ['Parque Acuático'],
         imagenes: ['parque-acuatico-splash.jpg'],
         direcciones: [{ calle: 'Calle Acuática', altura: 4041 }],
@@ -206,7 +206,7 @@ interface SeedDireccion {
       },
       {
         nombre: 'Universidad Nacional',
-        zona: 'Barrio Norte',
+        barrio: 'Barrio Norte',
         tipo: ['Universidad'],
         imagenes: ['universidad-nacional.jpg'],
         direcciones: [{ calle: 'Avenida Académica', altura: 4243 }],
@@ -215,7 +215,7 @@ interface SeedDireccion {
       },
       {
         nombre: 'Mall del Este',
-        zona: 'Barrio Este',
+        barrio: 'Barrio Este',
         tipo: ['Centro Comercial'],
         imagenes: ['mall-del-este.jpg'],
         direcciones: [{ calle: 'Boulevard Comercial', altura: 4445 }],
@@ -224,7 +224,7 @@ interface SeedDireccion {
       },
       {
         nombre: 'Jardín Botánico',
-        zona: 'Barrio Oeste',
+        barrio: 'Barrio Oeste',
         tipo: ['Jardín Botánico'],
         imagenes: ['jardin-botanico.jpg'],
         direcciones: [{ calle: 'Calle Floral', altura: 4647 }],
@@ -232,7 +232,7 @@ interface SeedDireccion {
       },
       {
         nombre: 'Banco Central',
-        zona: 'Centro',
+        barrio: 'Centro',
         tipo: ['Banco'],
         imagenes: ['banco-central.jpg'],
         direcciones: [{ calle: 'Avenida Bancaria', altura: 4849 }],

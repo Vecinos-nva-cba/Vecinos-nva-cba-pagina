@@ -14,7 +14,7 @@ export const LugarGrid = ({ lugares, totalPaginas }: Props) => {
 
   const filteredLugares = lugares.filter((lugar) =>
     lugar.nombre.toLowerCase().includes(searchText.toLowerCase()) ||
-    lugar.zona.toLowerCase().includes(searchText.toLowerCase())
+    lugar.barrio.toLowerCase().includes(searchText.toLowerCase())
   );
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,7 +37,7 @@ export const LugarGrid = ({ lugares, totalPaginas }: Props) => {
       {/* Lista de lugares filtrados */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
         {filteredLugares.map((lugar) => (
-          <LugarCard key={lugar.nombre + lugar.zona} lugar={lugar} />
+          <LugarCard key={lugar.nombre + lugar.barrio} lugar={lugar} />
         ))}
       </div>
       {!isSearching && <Paginacion totalPaginas={totalPaginas} />}

@@ -93,20 +93,20 @@ const LugarNuevo = () => {
           <div className="relative z-0 w-full mb-5">
             <input
               type="text"
-              name="zona"
+              name="barrio"
               placeholder="Calle"
               required
               className="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
             />
             
             <span className="text-sm text-red-600 hidden" id="error">
-              La zona es obligatoria
+              El barrio es obligatorio
             </span>
           </div>
           <div className="relative z-0 w-full mb-5">
             <input
               type="text"
-              name="zona"
+              name="barrio"
               placeholder="Altura"
               required
               className="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
