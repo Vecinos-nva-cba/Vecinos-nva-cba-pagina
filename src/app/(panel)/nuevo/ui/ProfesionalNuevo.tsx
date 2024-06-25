@@ -24,12 +24,14 @@ const ProfesionalNuevo = () => {
   const [redesSociales, setRedesSociales] = useState<
     { tipo: string; url: string }[]
   >([]);
-  // Estado para controlar la visibilidad del campo de entrada de URL para cada red social
   const [mostrarCamposUrl, setMostrarCamposUrl] = useState({});
   const [fotos, setFotos] = useState<File[]>([]);
 
   const [trabajos, setTrabajos] = useState<string[]>([]);
   const [nuevoTrabajo, setNuevoTrabajo] = useState("");
+  useEffect(() => {
+    console.log("Arreglo de redes sociales: ", redesSociales);
+  }, [redesSociales]);
   const router = useRouter();
   const {
     handleSubmit,
@@ -48,29 +50,44 @@ const ProfesionalNuevo = () => {
   });
 
   // Manejador de cambio para la selección de la red social
+  // const handleRedSocialChange = (event) => {
+  //   const redSocial = event.target.value;
+
+  //   // Verificar si la red social ya está seleccionada
+  //   if (redesSociales.includes(redSocial)) {
+  //     // Si la red social ya está seleccionada, la eliminamos del array
+  //     const nuevasRedesSociales = redesSociales.filter(
+  //       (rs) => rs !== redSocial
+  //     );
+  //     setRedesSociales(nuevasRedesSociales);
+  //     // Ocultamos el campo de entrada de URL de esa red social
+  //     setMostrarCamposUrl({
+  //       ...mostrarCamposUrl,
+  //       [redSocial]: false,
+  //     });
+  //   } else {
+  //     // Si la red social no está seleccionada, la agregamos al array
+  //     setRedesSociales([...redesSociales, redSocial]);
+  //     // Mostramos el campo de entrada de URL de esa red social
+  //     setMostrarCamposUrl({
+  //       ...mostrarCamposUrl,
+  //       [redSocial]: true,
+  //     });
+  //   }
+  // };
   const handleRedSocialChange = (event) => {
     const redSocial = event.target.value;
+    const nuevaRedSocial = { tipo: redSocial, url: "" };
 
-    // Verificar si la red social ya está seleccionada
-    if (redesSociales.includes(redSocial)) {
-      // Si la red social ya está seleccionada, la eliminamos del array
+    if (redesSociales.some((rs) => rs.tipo === redSocial)) {
       const nuevasRedesSociales = redesSociales.filter(
-        (rs) => rs !== redSocial
+        (rs) => rs.tipo !== redSocial
       );
       setRedesSociales(nuevasRedesSociales);
-      // Ocultamos el campo de entrada de URL de esa red social
-      setMostrarCamposUrl({
-        ...mostrarCamposUrl,
-        [redSocial]: false,
-      });
+      setMostrarCamposUrl((prev) => ({ ...prev, [redSocial]: false }));
     } else {
-      // Si la red social no está seleccionada, la agregamos al array
-      setRedesSociales([...redesSociales, redSocial]);
-      // Mostramos el campo de entrada de URL de esa red social
-      setMostrarCamposUrl({
-        ...mostrarCamposUrl,
-        [redSocial]: true,
-      });
+      setRedesSociales([...redesSociales, nuevaRedSocial]);
+      setMostrarCamposUrl((prev) => ({ ...prev, [redSocial]: true }));
     }
   };
 
@@ -82,6 +99,15 @@ const ProfesionalNuevo = () => {
       ...mostrarCamposUrl,
       [redSocial]: false,
     });
+  };
+
+  const handleUrlChange = (event, tipo) => {
+    const url = event.target.value;
+    const redSocial = redesSociales.find((rs) => rs.tipo === tipo);
+    if (redSocial) {
+      redSocial.url = url;
+      setValue(`redes`, [...redesSociales]);
+    }
   };
 
   const handleAgregarFoto = (event) => {
@@ -315,30 +341,27 @@ const ProfesionalNuevo = () => {
           </div>
 
           {/* Campos de entrada de URL, visibles solo para las redes sociales seleccionadas */}
-          {redesSociales.map(
-            (redSocial) =>
-              mostrarCamposUrl[redSocial] && (
-                <div
-                  key={redSocial}
-                  className="relative z-0 w-full mb-5 flex items-center"
-                >
-                  <input
-                    type="text"
-                    placeholder={`Ingrese la URL de ${redSocial}`}
-                    {...register(`redes.${redSocial}.url`)}
-                    className="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200 mr-3"
-                  />
-                  <label
-                    htmlFor={`redes.${redSocial}.url`}
-                    className="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"
-                  ></label>
-                  <MdClose
-                    className="cursor-pointer"
-                    onClick={() => handleEliminarRedSocial(redSocial)}
-                  />
-                </div>
-              )
-          )}
+          {redesSociales.map((redSocial, index) => (
+            <div
+              key={index}
+              className="relative z-0 w-full mb-5 flex items-center"
+            >
+              <input
+                type="text"
+                placeholder={`Ingrese la URL de ${redSocial.tipo}`}
+                className="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200 mr-3"
+                {...register(`redes.${index}.url`)}
+              />
+              <label
+                htmlFor={`redes.${index}.url`}
+                className="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"
+              ></label>
+              <MdClose
+                className="cursor-pointer"
+                onClick={() => handleEliminarRedSocial(redSocial)}
+              />
+            </div>
+          ))}
 
           <div className="flex flex-col mb-2">
             <span>Imagen</span>
