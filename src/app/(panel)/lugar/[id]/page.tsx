@@ -20,7 +20,9 @@ export default async function LugarPage({ params }: Props) {
   const { id } = params;
   const lugar = await getLugarById(id);
 
-  console.log(lugar);
+  // console.log(lugar?.localizacion)
+
+  // console.log(lugar);
 
   return (
     <div className="mt-5 mb-20 grid grid-cols-1 md:grid-cols-3 gap-3">
@@ -30,7 +32,7 @@ export default async function LugarPage({ params }: Props) {
           <MuestraLugar
             titulo={lugar.nombre}
             imagenes={lugar.imagenes.map((imagen) => imagen.url)}
-            className="hidden md:block"
+            className="hidden md:block ml-6 mr-0"
           />
         )}
 
@@ -48,7 +50,7 @@ export default async function LugarPage({ params }: Props) {
           <h1 className="text-2xl md:text-4xl font-bold">{lugar?.nombre}</h1>
         </div>
         <div className="flex flex-row items-center mt-5">
-          <h2 className="font-bold">Barrio o zona:</h2>
+          <h2 className="font-bold  md:text-xl">Barrio o zona:</h2>
           <span className="ml-2">{lugar?.barrio}</span>
         </div>
 
@@ -67,7 +69,7 @@ export default async function LugarPage({ params }: Props) {
         </div>
 
         <div className="flex flex-row items-center mt-5 md:mt-0">
-          <h1 className="font-bold">
+          <h1 className="font-bold  md:text-xl">
             {Array.isArray(lugar?.direccion) && lugar.direccion.length > 1
               ? "Direcciones:"
               : "Direccion:"}
@@ -80,7 +82,9 @@ export default async function LugarPage({ params }: Props) {
             ))}
         </div>
 
-        {lugar?.localizacion && lugar.localizacion !== "" && (
+        {
+          
+        lugar !== null && lugar.localizacion !== 'undefined' && lugar.localizacion !== null && lugar.localizacion.trim() !== "" && (
           <div className="text-blue-500 hover:text-blue-700 mt-4 md:mt-2">
             <Link href={lugar.localizacion}>Ir a la ubicación</Link>
           </div>

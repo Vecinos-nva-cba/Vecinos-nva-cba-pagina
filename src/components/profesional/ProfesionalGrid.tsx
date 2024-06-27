@@ -2,6 +2,7 @@
 import { Profesional } from "@/interfaces";
 import { Paginacion, ProfesionalCard } from "..";
 import { useState } from "react";
+import AnimatedOnScroll from "../ui/AnimateScroll";
 
 interface Props {
   profesionales: Profesional[];
@@ -41,7 +42,10 @@ export const ProfesionalGrid = ({ profesionales, totalPaginas }: Props) => {
       {/* Lista de lugares filtrados */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 justify-center items-center">
         {filteredProfesional.map((profesional) => (
-          <ProfesionalCard key={profesional.numero} profesional={profesional} />
+          <AnimatedOnScroll key={profesional.numero} animationClass="animate__fadeInUp">
+
+            <ProfesionalCard  profesional={profesional} />
+          </AnimatedOnScroll>
         ))}
       </div>
       {!isSearching && <Paginacion totalPaginas={totalPaginas} />}

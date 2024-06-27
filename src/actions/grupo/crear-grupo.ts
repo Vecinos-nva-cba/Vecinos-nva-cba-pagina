@@ -80,6 +80,10 @@ const cargarImagen = async (imagen: File) => {
 
         const respuesta = await cloudinary.uploader.upload(`data:image/png;base64,${base64Imagen}`, {
             folder: "grupos", // Opcional: especificar una carpeta en Cloudinary
+            transformation: {
+                aspect_ratio: "4:3" ,
+                crop: "fill"
+              }
         })
 
         return respuesta.secure_url

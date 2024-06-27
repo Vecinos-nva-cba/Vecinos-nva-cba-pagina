@@ -7,6 +7,7 @@ import { getGrupoPaginacion, getLugarById } from "@/actions";
 import { getGrupoById } from "@/actions/grupo/get-grupo-by-id";
 import { SwipperCard } from "@/components/dashboard/SwipperCard";
 import { Grupo, Lugar } from "@/interfaces";
+import AnimatedOnScroll from "@/components/ui/AnimateScroll";
 
 export default async function PanelPage() {
   const grupoIds = [
@@ -14,31 +15,39 @@ export default async function PanelPage() {
     "1bcdb26a-f27d-42a1-a914-b9ec29014ff9",
     "a85d87d7-2045-4f0a-9efd-bb7f52f04dd1",
   ];
-  const grupoData= await getGrupoById(grupoIds);
+  const grupoData = await getGrupoById(grupoIds);
 
-  const lugares: (Lugar[] | null) = [];
+  const lugares: Lugar[] | null = [];
   const getLugarOrDefault = async (id: string) => {
     const lugar = await getLugarById(id);
-    return lugar ?? {
-      id: '',
-      nombre: '',
-      barrio: '',
-      tipo: [],
-      localizacion: null,
-      imagenes: [],
-      redes: [],
-      direccion: [],
-    };
+    return (
+      lugar ?? {
+        id: "",
+        nombre: "",
+        barrio: "",
+        tipo: [],
+        localizacion: null,
+        imagenes: [],
+        redes: [],
+        direccion: [],
+      }
+    );
   };
-  
-  const lugarId1 = await getLugarOrDefault("3b36d79f-e857-469a-a86b-4b1cabfe640b");
-  const lugarId2 = await getLugarOrDefault("d2e78118-c5ee-4985-acba-9b2f2d6ec6a2");
-  const lugarId3 = await getLugarOrDefault("e7f58c01-00b6-4e02-b2b9-3d40e2814acf");
-  lugares.push(lugarId1)
-  lugares.push(lugarId2)
-  lugares.push(lugarId3)
+
+  const lugarId1 = await getLugarOrDefault(
+    "3b36d79f-e857-469a-a86b-4b1cabfe640b"
+  );
+  const lugarId2 = await getLugarOrDefault(
+    "d2e78118-c5ee-4985-acba-9b2f2d6ec6a2"
+  );
+  const lugarId3 = await getLugarOrDefault(
+    "e7f58c01-00b6-4e02-b2b9-3d40e2814acf"
+  );
+  lugares.push(lugarId1);
+  lugares.push(lugarId2);
+  lugares.push(lugarId3);
   // console.log(grupo1);
-  
+
   return (
     <div className="  ">
       <section className="md:min-h-full">
@@ -77,29 +86,35 @@ export default async function PanelPage() {
         <div className="flex flex-col md:flex-row gap-10  my-10 items-center justify-center mg:flex-rows-2 lg:flex-rows-3">
           {grupoData?.grupos.map((grupo) => {
             return (
-              <div key={grupo.url}>
-                <Card
-                  titulo={grupo.nombre}
-                  descripcion={grupo.descripcion}
-                  url={grupo.url}
-                  img={grupo.imagen ?? ''}
-                />
-              </div>
+              <AnimatedOnScroll
+                key={grupo.url}
+                animationClass="animate__fadeInRight"
+              >
+                <div>
+                  <Card
+                    titulo={grupo.nombre}
+                    descripcion={grupo.descripcion}
+                    url={grupo.url}
+                    img={grupo.imagen ?? ""}
+                  />
+                </div>
+              </AnimatedOnScroll>
             );
           })}
         </div>
       </section>
 
       <section className=" bg-gray-600 py-16 md:py-20 flex flex-col  justify-start pl-10 pr-10 w-full">
-        <h2 className="flex  text-xl lg:text-2xl text-sky-500 font-bold mb-2">
+        <h2 className="flex  text-xl md:text-3xl text-sky-500 font-bold mb-2">
           Profesionales
         </h2>
-        <p className="text-sm  lg:text-base text-white">
-          Es un hecho establecido hace demasiado tiempo que un lector se
-          distraerá con el contenido del texto de un sitio mientras que mira su
-          diseño. El punto de usar Lorem Ipsum es que tiene una distribución más
-          o menos normal de las letras, al contrario de usar textos como por
-          ejemplo Contenido aquí, contenido aquí. Estos textos hacen
+        <p className="text-sm md:text-xl  text-white">
+          Ofrecemos un catálogo completo de profesionales de diversas
+          especializaciones, para que ya no tengas que buscar por todos lados.
+          Nuestra plataforma te permite encontrar el profesional adecuado para
+          tus necesidades urgentes de manera rápida y eficiente. Simplemente
+          busca por la especialidad que necesitas y encontrarás información
+          detallada, incluyendo números de teléfono y enlaces a redes sociales.
         </p>
       </section>
 
@@ -114,7 +129,12 @@ export default async function PanelPage() {
 
         <div className="flex flex-col md:flex-row gap-10 my-10 items-center justify-center mg:flex-rows-2 lg:flex-rows-3">
           {lugares.map((lugar) => (
-            <LugarCard key={lugar.id} lugar={lugar} />
+            <AnimatedOnScroll
+              key={lugar.id}
+              animationClass="animate__fadeInRight"
+            >
+              <LugarCard key={lugar.id} lugar={lugar} />
+            </AnimatedOnScroll>
           ))}
         </div>
       </section>

@@ -2,6 +2,7 @@
 import { Grupo } from "@/interfaces";
 import { GrupoCard, Paginacion } from "..";
 import { useState } from "react";
+import AnimatedOnScroll from "../ui/AnimateScroll";
 
 interface Props {
   grupos: Grupo[];
@@ -37,7 +38,10 @@ export const GrupoGrid = ({ grupos, totalPaginas }: Props) => {
       {/* Lista de grupos filtrados */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 ">
         {filteredGrupos.map((grupo) => (
-          <GrupoCard key={grupo.url} titulo={grupo.nombre} descripcion={grupo.descripcion} url={grupo.url} img={grupo.imagen ?? '/wpp.jpg'} tipo={grupo.tipo} />
+          <AnimatedOnScroll key={grupo.url} animationClass="animate__fadeInUp">
+
+            <GrupoCard  titulo={grupo.nombre} descripcion={grupo.descripcion} url={grupo.url} img={grupo.imagen ?? '/wpp.jpg'} tipo={grupo.tipo} />
+          </AnimatedOnScroll>
         ))}
       </div>
       {!isSearching && <Paginacion totalPaginas={totalPaginas} />}

@@ -5,7 +5,7 @@ import { IoLogoInstagram, IoLogoTwitch } from "react-icons/io5";
 export default function NosotrosPage() {
   return (
     <div className="flex flex-col h-[700px] md:min-h-screen md:flex-row justify-center items-center ">
-      <div className="p-5 md:p-10 m-3 md:m-10 flex-shrink-0 flex justify-center items-center">
+      <div className="p-5 md:p-10 m-3 md:m-10 flex-shrink-0 flex justify-center items-center animate__animated animate__fadeInUp">
         <Image
           src={"/logo-vncba.png"}
           alt="Foto"
@@ -14,7 +14,7 @@ export default function NosotrosPage() {
           className="rounded-lg"
         />
       </div>
-      <div className="p-5 md:pr-5 m-auto">
+      <div className="p-5 md:pr-5 m-auto animate__animated animate__zoomIn">
         <h1 className="text-2xl md:text-3xl font-bold mb-4">Sobre nosotros</h1>
         <p className="text-lg md:text-xl">
           Somos vecinos de Nueva Córdoba que busca crear un espacio donde todos

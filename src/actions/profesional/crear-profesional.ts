@@ -233,6 +233,10 @@ const cargarImagen = async (imagenes: File[]) => {
           `data:image/png;base64,${base64Imagen}`,
           {
             folder: "profesionales",
+            transformation: {
+              aspect_ratio: "4:3" ,
+              crop: "fill"
+            }
           }
         );
 

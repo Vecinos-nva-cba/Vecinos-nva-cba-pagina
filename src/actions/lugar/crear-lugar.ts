@@ -159,6 +159,10 @@ const cargarImagen = async (imagenes: File[]) => {
         return cloudinary.uploader
           .upload(`data:image/png;base64,${base64Imagen}`, {
             folder: "lugares", // Opcional: especificar una carpeta en Cloudinary
+            transformation: {
+              aspect_ratio: "4:3" ,
+              crop: "fill"
+            }
           })
           .then((respuesta) => respuesta.secure_url);
       } catch (error) {

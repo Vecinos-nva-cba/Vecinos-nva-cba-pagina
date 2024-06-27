@@ -2,6 +2,7 @@
 import React, { use, useState } from 'react';
 import { Lugar } from '@/interfaces';
 import { LugarCard, Paginacion } from '..';
+import AnimatedOnScroll from '../ui/AnimateScroll';
 
 interface Props {
   lugares: Lugar[];
@@ -37,7 +38,10 @@ export const LugarGrid = ({ lugares, totalPaginas }: Props) => {
       {/* Lista de lugares filtrados */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 mx-auto">
         {filteredLugares.map((lugar) => (
-          <LugarCard key={lugar.nombre + lugar.barrio} lugar={lugar} />
+          <AnimatedOnScroll key={lugar.nombre + lugar.barrio} animationClass="animate__fadeInUp">
+
+            <LugarCard  lugar={lugar} />
+          </AnimatedOnScroll>
         ))}
       </div>
       {!isSearching && <Paginacion totalPaginas={totalPaginas} />}
