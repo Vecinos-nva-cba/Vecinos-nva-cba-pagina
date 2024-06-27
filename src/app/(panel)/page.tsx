@@ -1,39 +1,46 @@
 import Image from "next/image";
 import "animate.css";
 import { fontTitulo } from "@/config/fonts";
-import { GrupoCard } from "@/components";
+import { GrupoCard, LugarCard } from "@/components";
 import { Card } from "@/components/dashboard/Card";
-import { getGrupoPaginacion } from "@/actions";
+import { getGrupoPaginacion, getLugarById } from "@/actions";
 import { getGrupoById } from "@/actions/grupo/get-grupo-by-id";
 import { SwipperCard } from "@/components/dashboard/SwipperCard";
+import { Grupo, Lugar } from "@/interfaces";
 
 export default async function PanelPage() {
-  const grupo1 = await getGrupoById("105067ea-0252-44f7-9ae3-c7941a596864");
-  console.log(grupo1);
-  const cards = [
-    {
-      titulo: "Trabajo",
-      descripcion: "Grupo para compartir empleos de trabajo",
-      url: "/grupo/123",
-      img: "/wpp.jpg",
-    },
-    {
-      titulo: "Venta",
-      descripcion: "Espacio para compartir consejos y estrategias de ventas.",
-      url: "/grupo/123",
-      img: "/wpp.jpg",
-    },
-    {
-      titulo: "Estudio",
-      descripcion:
-        "Grupo destinado a compartir recursos de estudio y aprendizaje.",
-      url: "/grupo/123",
-      img: "/wpp.jpg",
-    },
-    // Agrega más tarjetas si es necesario
+  const grupoIds = [
+    "5432569e-4d2d-481a-8ccf-4df8bf41a61a",
+    "1bcdb26a-f27d-42a1-a914-b9ec29014ff9",
+    "a85d87d7-2045-4f0a-9efd-bb7f52f04dd1",
   ];
+  const grupoData= await getGrupoById(grupoIds);
+
+  const lugares: (Lugar[] | null) = [];
+  const getLugarOrDefault = async (id: string) => {
+    const lugar = await getLugarById(id);
+    return lugar ?? {
+      id: '',
+      nombre: '',
+      barrio: '',
+      tipo: [],
+      localizacion: null,
+      imagenes: [],
+      redes: [],
+      direccion: [],
+    };
+  };
+  
+  const lugarId1 = await getLugarOrDefault("3b36d79f-e857-469a-a86b-4b1cabfe640b");
+  const lugarId2 = await getLugarOrDefault("d2e78118-c5ee-4985-acba-9b2f2d6ec6a2");
+  const lugarId3 = await getLugarOrDefault("e7f58c01-00b6-4e02-b2b9-3d40e2814acf");
+  lugares.push(lugarId1)
+  lugares.push(lugarId2)
+  lugares.push(lugarId3)
+  // console.log(grupo1);
+  
   return (
-    <div className="container mx-auto ">
+    <div className="  ">
       <section className="md:min-h-full">
         <div className="relative w-full min-h-80 h-[70vh] md:h-[50vh] lg:h-[90vh]">
           <div className="absolute inset-0 bg-black opacity-100"></div>
@@ -68,20 +75,18 @@ export default async function PanelPage() {
           </h1>
         </div>
         <div className="flex flex-col md:flex-row gap-10  my-10 items-center justify-center mg:flex-rows-2 lg:flex-rows-3">
-          {cards.map((grupo) => {
+          {grupoData?.grupos.map((grupo) => {
             return (
-              <div key={grupo.titulo}>
-
+              <div key={grupo.url}>
                 <Card
-                  titulo={grupo.titulo}
+                  titulo={grupo.nombre}
                   descripcion={grupo.descripcion}
                   url={grupo.url}
-                  img={grupo.img}
+                  img={grupo.imagen ?? ''}
                 />
               </div>
             );
           })}
-          
         </div>
       </section>
 
@@ -107,25 +112,10 @@ export default async function PanelPage() {
           </h1>
         </div>
 
-        <div className="flex flex-col md:flex-row gap-10  my-10 items-center justify-center mg:flex-rows-2 lg:flex-rows-3">
-          <Card
-            titulo="Compra"
-            descripcion="Grupo dedicado a la colaboración en compras comunitarias."
-            url="/grupo/123"
-            img="/8.jpg"
-          />
-          <Card
-            titulo="Venta"
-            descripcion="Espacio para compartir consejos y estrategias de ventas."
-            url="/grupo/123"
-            img="/7.jpg"
-          />
-          <Card
-            titulo="Estudio"
-            descripcion="Grupo destinado a compartir recursos de estudio y aprendizaje."
-            url="/grupo/123"
-            img="/6.jpg"
-          />
+        <div className="flex flex-col md:flex-row gap-10 my-10 items-center justify-center mg:flex-rows-2 lg:flex-rows-3">
+          {lugares.map((lugar) => (
+            <LugarCard key={lugar.id} lugar={lugar} />
+          ))}
         </div>
       </section>
     </div>

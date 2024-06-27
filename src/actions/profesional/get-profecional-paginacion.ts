@@ -18,7 +18,15 @@ export const getProfesionalPaginacion = async ({
     const profesional = await prisma.profesional.findMany({
         take: take,
         skip: ( pagina - 1) * take,
-        
+        select: {
+          id: true,
+          nombre: true,
+          apellido: true,
+          numero: true,
+          trabajo: true,
+          imagen: true,
+          redesSociales: true,
+        },
     })
     // console.log('-------------------')
     // console.log(grupos.length)

@@ -18,8 +18,15 @@ export const getLugarPaginacion = async ({
     const lugar = await prisma.lugar.findMany({
         take: take,
         skip: ( pagina - 1) * take,
-        include:{
-          direccion: true
+        select:{
+          id: true,
+          nombre: true,
+          barrio: true,
+          tipo: true,
+          imagenes: true,
+          redes: true,
+          localizacion: true,
+          direccion: { select: { calle: true, altura: true } },
         }
         
     })
@@ -37,6 +44,6 @@ export const getLugarPaginacion = async ({
 
 
   } catch (error) {
-    throw new Error('No se pudo mostrar los profesionales')
+    throw new Error('No se pudo mostrar los lugares')
   }
 };

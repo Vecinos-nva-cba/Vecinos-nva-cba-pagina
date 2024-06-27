@@ -17,6 +17,7 @@ import "./muestra.css";
 import { Autoplay, FreeMode, Navigation, Thumbs } from "swiper/modules";
 import Image from "next/image";
 import { ImagenLugar } from "./ImagenLugar";
+import { Imagen } from "@/interfaces";
 
 
 interface Props {

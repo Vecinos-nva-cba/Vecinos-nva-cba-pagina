@@ -19,22 +19,7 @@ export const TopMenu = () => {
     <nav className="bg-sky-500 flex items-center mg:justify-between w-full relative z-10">
       <div className="flex items-center my-1 ml-20 md:ml-8 pl-10 justify-center">
         <Link href="/">
-          {/* <svg
-            version="1.1"
-            id="Layer_1"
-            xmlns="http://www.w3.org/2000/svg"
-            xmlnsXlink="http://www.w3.org/1999/xlink"
-            x="0px"
-            y="0px"
-            width="230px" // Reduzco el tamaño del logo en tablet
-            height="50px" // Reduzco el tamaño del logo en tablet
-            viewBox="0 0 906 275"
-            enableBackground="new 0 0 906 275"
-            xmlSpace="preserve"
-            className=" mg:mr-20 " // Ajusto el margen derecho en tablet
-          >
-            <image xlinkHref="/logo.svg" width="906" height="275" x="0" y="0" />
-          </svg> */}
+          
           <Image
             src="/logo.svg" // Ruta del SVG en la carpeta `public`
             alt="Descripción del icono"
@@ -130,4 +115,3 @@ export const TopMenu = () => {
   );
 };
 
-export default TopMenu;

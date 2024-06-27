@@ -10,9 +10,15 @@ export const getLugarById = async (id:string) => {
         where:{
             id:id
         },
-        include:{
-            redes: true, 
-            direccion: true
+        select:{
+          id: true,
+          nombre: true,
+          barrio: true,
+          tipo: true,
+          imagenes: true,
+          redes: true,
+          localizacion: true,
+          direccion: { select: { calle: true, altura: true } },
         }
     })
 

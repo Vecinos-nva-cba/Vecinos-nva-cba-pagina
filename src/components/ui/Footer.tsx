@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import React from "react";
 
-const Footer = () => {
+export const Footer = () => {
   return (
     <div>
       <div className="w-full  flex items-center justify-center bg-sky-500">
@@ -136,4 +136,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+

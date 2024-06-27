@@ -30,7 +30,7 @@ export default async function ProfesionalPage({ params }: Props) {
     <div className="flex flex-col md:flex-row justify-center md:justify-normal md:ml-10 md:pl-12 items-start md:items-center">
       <div className="flex justify-start md:p-10  m-5 md:m-10 md:ml-10">
         <Image
-          src={"/logo-vncba.png"}
+          src={profesional.imagen[0].url}
           alt="Foto"
           width={400}
           height={200}
@@ -48,7 +48,7 @@ export default async function ProfesionalPage({ params }: Props) {
           {profesional.trabajo.map((trabajo) => (
             <span
               key={trabajo}
-              className="bg-gray-500 text-white py-1 px-2 rounded-md text-sm"
+              className="bg-gray-500 mx-1 text-white py-1 px-2 rounded-md text-sm"
             >
               {trabajo}
             </span>
@@ -58,10 +58,10 @@ export default async function ProfesionalPage({ params }: Props) {
           <h1 className="font-bold">Mi telefono es:</h1>
           <span className="ml-2"> {profesional.numero}</span>
         </div>
-        {profesional.redes.length > 0 && (
+        {profesional.redesSociales.length > 0 && (
           <div className="flex flex-row items-center mt-5">
             <h1 className="mr-3 font-bold">Mis redes:</h1>
-            {profesional.redes.map((red) => (
+            {profesional.redesSociales.map((red) => (
               <Link href={red.url} key={red.url} passHref>
                 {red.tipo === "Instagram" && (
                   <IoLogoInstagram className="text-3xl md:text-4xl text-pink-500 hover:text-pink-700 cursor-pointer mr-2" />

@@ -10,7 +10,7 @@ cloudinary.config(process.env.CLOUDINARY_URL ?? '')
 const GrupoSchema = z.object({
     id: z.string().uuid().optional().nullable(),
     nombre: z.string().min(3).max(255),
-    descripcion: z.string().optional(),
+    descripcion: z.string(),
     tipo: z.string().min(3).max(80),
     url: z.string().min(3).max(500),
 })
@@ -29,6 +29,7 @@ export const crearGrupo = async (formData: FormData) => {
 
         const grupo = grupoValidado.data;
         const { id, ...restInfo } = grupo;
+        
 
         const transsaccionPrisma = await prisma.$transaction(async (transaccion) => {
             let grupo: Grupo;

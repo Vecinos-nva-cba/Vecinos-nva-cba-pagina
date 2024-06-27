@@ -1,5 +1,6 @@
-import { TopMenu } from "@/components";
-import Footer from "@/components/ui/Footer";
+import { Footer, TopMenu } from "@/components";
+
+
 
 
 export default function PanelLayout({

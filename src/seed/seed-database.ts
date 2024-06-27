@@ -4,7 +4,7 @@ import { initialDataProfesionales } from "./seed-profesionales";
 import { initialDataGRupos } from "./seed-grupos";
 
 async function main() {
-  await prisma.red.deleteMany();
+  await prisma.redSocial.deleteMany();
   await prisma.direccion.deleteMany();
   await prisma.lugar.deleteMany();
   await prisma.profesional.deleteMany();
@@ -39,7 +39,7 @@ async function main() {
     await prisma.profesional.update({
       where: { id: profesional.id },
       data: {
-        redes: {
+        redesSociales: {
           create: redesProfesional.map((red) => ({
             tipo: red.tipo,
             url: red.red,
@@ -57,7 +57,9 @@ async function main() {
           nombre: seedLugar.nombre,
           barrio: seedLugar.barrio,
           tipo: seedLugar.tipo,
-          imagenes: seedLugar.imagenes,
+          imagenes: {
+            create: seedLugar.imagenes.map((imagen) => ({ url: imagen })),
+          },
           localizacion: seedLugar.localizacion,
           redes: {
             create: seedLugar.redes?.map((red) => ({

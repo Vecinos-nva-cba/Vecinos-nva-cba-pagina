@@ -14,9 +14,9 @@ export default async function GruposPage({searchParams}: Props) {
   const {grupos, totalPaginas, currentPage} = await getGrupoPaginacion({pagina})
   // console.log({ totalPaginas, currentPage})
   return (
-    <>
+    <div>
       <GrupoGrid grupos={grupos} totalPaginas={totalPaginas}/>
       
-    </>
+    </div>
   );
 }

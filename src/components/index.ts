@@ -1,8 +1,8 @@
 
 
-export * from './ui/TopMenu'
 export * from './ui/Footer'
-export * from './grupo/GRupoCard'
+export * from './ui/TopMenu'
+export * from './grupo/GrupoCard'
 export * from './grupo/GuposGrid'
 export * from './ui/paginacion/Paginacion'
 export * from './profesional/ProfesionalCard'

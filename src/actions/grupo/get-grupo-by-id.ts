@@ -1,22 +1,23 @@
 'use server'
 
-
 import prisma from '@/lib/prisma'
 
-export const getGrupoById = async (id: string) => {
-    try {
-        
-        const grupo = await prisma.grupo.findFirst( {
-            where: {
-                id: id
-            }
-        })
+export const getGrupoById = async (ids: string[]) => {
+  try {
+    const grupos = await prisma.grupo.findMany({
+      where: {
+        id: {
+          in: ids,
+        },
+      },
+    })
 
-        if (!grupo) return null
+    if (!grupos) return null
 
-        return {grupo}
-    } catch (error) {
-        console.log(error)
-        throw new Error('No se pudo obtener grupo')
-    }
+    return { grupos }
+  } catch (error) {
+    console.log(error)
+    throw new Error('No se pudo obtener grupos')
+  }
 }
+

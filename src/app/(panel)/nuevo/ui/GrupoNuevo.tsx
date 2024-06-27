@@ -68,21 +68,16 @@ const GrupoNuevo = () => {
     <div className="min-h-screen  px-6 ">
       <div className="mx-auto max-w-md px-6 py-10 bg-white border-0 shadow-lg rounded-3xl">
         <h1 className="text-2xl font-bold mb-8">Nuevo grupo</h1>
-        <form id="form" noValidate onSubmit={handleSubmit(onSubmit)}>
+        <form id="form" onSubmit={handleSubmit(onSubmit)}>
           <div className="relative z-0 w-full mb-5">
             <input
               type="text"
               placeholder="Nombre"
               {...register("nombre", { required: true })}
+              required
               className="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
             />
-            <label
-              htmlFor="nombre"
-              className="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"
-            ></label>
-            <span className="text-sm text-red-600 hidden" id="error">
-              El nombre es obligatorio
-            </span>
+            
           </div>
 
           <div className="relative z-0 w-full mb-5">
@@ -90,31 +85,21 @@ const GrupoNuevo = () => {
               type="text"
               placeholder="Tipo"
               {...register("tipo", { required: true })}
+              required
               className="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
             />
-            <label
-              htmlFor="tipo"
-              className="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"
-            ></label>
-            <span className="text-sm text-red-600 hidden" id="error">
-              El tipo es obligatorio
-            </span>
+            
           </div>
 
           <div className="relative z-0 w-full mb-5">
             <input
               type="text"
               placeholder="Enlace"
+              required
               {...register("url", { required: true })}
               className="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
             />
-            <label
-              htmlFor="link"
-              className="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"
-            ></label>
-            <span className="text-sm text-red-600 hidden" id="error">
-              La url es obligatoria
-            </span>
+            
           </div>
 
           <div className="relative z-0 w-full mb-5">
@@ -123,13 +108,7 @@ const GrupoNuevo = () => {
               {...register("descripcion", { required: true })}
               className="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
             />
-            <label
-              htmlFor="descripcion"
-              className="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"
-            ></label>
-            <span className="text-sm text-red-600 hidden" id="error">
-              La descripción es obligatoria
-            </span>
+            
           </div>
 
           <div className="relative z-0 w-full">
@@ -152,7 +131,7 @@ const GrupoNuevo = () => {
 
           <button
             type="submit"
-            disabled={!isValid}
+            
             className="w-full px-6 py-3 mt-3 text-lg text-white transition-all duration-150 ease-linear rounded-lg shadow outline-none bg-sky-500 hover:bg-sky-600 hover:shadow-lg focus:outline-none"
           >
             Registrar

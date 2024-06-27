@@ -1,4 +1,4 @@
-export interface Redes {
+export interface RedSocial {
     url: string
     tipo: Red
 }

@@ -1,10 +1,14 @@
-import { Redes } from ".";
+import { RedSocial } from ".";
+import { Imagen } from ".";
+
 
 export interface Profesional {
-    nombre: string;
-    apellido: string;
-    trabajo: string[];
-    numero: string;
-    imagen: string;
-    redes?: Redes[];
-  }
+  id: string;
+  nombre: string;
+  apellido: string;
+  numero: string;
+  trabajo: string[];
+  imagen: Imagen[];
+  redesSociales: RedSocial[];
+}
+

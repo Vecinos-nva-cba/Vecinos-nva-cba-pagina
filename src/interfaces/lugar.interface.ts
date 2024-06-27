@@ -1,13 +1,13 @@
-import { Direccion, Redes } from ".";
-
+import { Direccion, RedSocial } from ".";
+import { Imagen } from ".";
 
 export interface Lugar {
     id:string
     nombre: string;
     barrio: string;
     tipo: string[];
-    imagenes: string[];
+    imagenes: Imagen[];
     direccion: Direccion[];
-    redes?: Redes[]
+    redes?: RedSocial[]
     localizacion?: string | null
   }

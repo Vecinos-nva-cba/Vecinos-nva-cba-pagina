@@ -11,6 +11,7 @@ import 'swiper/css/free-mode';
 import 'swiper/css/pagination';
 
 import './muestra.css';
+import { Imagen } from '@/interfaces';
 
 
 
@@ -47,7 +48,7 @@ export const MuestraLugarMobile = ( { imagenes, titulo, className }: Props ) => 
               <Image
                 width={ 600 }
                 height={ 500 }
-                src={ `/products/${ imagen }` }
+                src={ imagen }
                 alt={ titulo }
                 className="object-fill"
               />

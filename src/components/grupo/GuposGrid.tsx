@@ -24,7 +24,7 @@ export const GrupoGrid = ({ grupos, totalPaginas }: Props) => {
     setIsSearching(value.length > 0);
   };
   return (
-    <div className="m-8">
+    <div className="m-8 flex flex-col justify-center items-center">
       {/* Campo de búsqueda */}
       <input
         type="text"
@@ -35,7 +35,7 @@ export const GrupoGrid = ({ grupos, totalPaginas }: Props) => {
       />
 
       {/* Lista de grupos filtrados */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 ">
         {filteredGrupos.map((grupo) => (
           <GrupoCard key={grupo.url} titulo={grupo.nombre} descripcion={grupo.descripcion} url={grupo.url} img={grupo.imagen ?? '/wpp.jpg'} tipo={grupo.tipo} />
         ))}

@@ -6,7 +6,8 @@ import { useForm } from "react-hook-form";
 import { useRouter, redirect } from "next/navigation";
 import { crearProfesional } from "@/actions";
 import Image from "next/image";
-import { useJob } from "@/hooks/useJob";
+// import { useJob } from "@/hooks/useJob";
+import clsx from "clsx";
 
 const Redes = ["Instagram", "Facebook", "Twitter", "Linkedin", "Web"];
 interface inputFormulario {
@@ -14,12 +15,13 @@ interface inputFormulario {
   apellido: string;
   trabajo: string[];
   numero: string;
-  imagen: File[];
+  imagen: FileList;
   redes: { tipo: string; url: string }[];
 }
 
 const ProfesionalNuevo = () => {
   // const { onChangue, onSubmit, nuevoTrabajo} = useJob()
+  const [mensajeError, setMensajeError] = useState("");
   // Estado para almacenar las redes sociales seleccionadas
   const [redesSociales, setRedesSociales] = useState<
     { tipo: string; url: string }[]
@@ -29,53 +31,27 @@ const ProfesionalNuevo = () => {
 
   const [trabajos, setTrabajos] = useState<string[]>([]);
   const [nuevoTrabajo, setNuevoTrabajo] = useState("");
-  useEffect(() => {
-    console.log("Arreglo de redes sociales: ", redesSociales);
-  }, [redesSociales]);
+  // useEffect(() => {
+  //   console.log("Arreglo de redes sociales: ", redesSociales);
+  // }, [redesSociales]);
   const router = useRouter();
   const {
     handleSubmit,
     register,
-    formState: { isValid },
+    formState: { isValid, isSubmitted, errors },
     getValues,
     setValue,
     reset,
     watch, //Le dice cuando se tiene que volver a renderizar en caso de que haya alñgun cambio en el formulario
   } = useForm<inputFormulario>({
     defaultValues: {
-      imagen: [],
+      imagen: undefined,
       redes: [],
       trabajo: [],
     },
   });
 
-  // Manejador de cambio para la selección de la red social
-  // const handleRedSocialChange = (event) => {
-  //   const redSocial = event.target.value;
-
-  //   // Verificar si la red social ya está seleccionada
-  //   if (redesSociales.includes(redSocial)) {
-  //     // Si la red social ya está seleccionada, la eliminamos del array
-  //     const nuevasRedesSociales = redesSociales.filter(
-  //       (rs) => rs !== redSocial
-  //     );
-  //     setRedesSociales(nuevasRedesSociales);
-  //     // Ocultamos el campo de entrada de URL de esa red social
-  //     setMostrarCamposUrl({
-  //       ...mostrarCamposUrl,
-  //       [redSocial]: false,
-  //     });
-  //   } else {
-  //     // Si la red social no está seleccionada, la agregamos al array
-  //     setRedesSociales([...redesSociales, redSocial]);
-  //     // Mostramos el campo de entrada de URL de esa red social
-  //     setMostrarCamposUrl({
-  //       ...mostrarCamposUrl,
-  //       [redSocial]: true,
-  //     });
-  //   }
-  // };
-  const handleRedSocialChange = (event) => {
+  const handleRedSocialChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const redSocial = event.target.value;
     const nuevaRedSocial = { tipo: redSocial, url: "" };
 
@@ -92,33 +68,32 @@ const ProfesionalNuevo = () => {
   };
 
   // Manejador para eliminar una red social seleccionada
-  const handleEliminarRedSocial = (redSocial) => {
+  const handleEliminarRedSocial = (redSocial: { tipo: string; url: string }) => {
     const nuevasRedesSociales = redesSociales.filter((rs) => rs !== redSocial);
     setRedesSociales(nuevasRedesSociales);
     setMostrarCamposUrl({
       ...mostrarCamposUrl,
-      [redSocial]: false,
+      [String(redSocial.tipo)]: false,
     });
   };
 
-  const handleUrlChange = (event, tipo) => {
+  const handleUrlChange = (event: React.ChangeEvent<HTMLInputElement>, tipo: string) => {
     const url = event.target.value;
     const redSocial = redesSociales.find((rs) => rs.tipo === tipo);
     if (redSocial) {
       redSocial.url = url;
-      setValue(`redes`, [...redesSociales]);
+      setRedesSociales([...redesSociales]); // Update the state with the new URL
     }
   };
 
-  const handleAgregarFoto = (event) => {
-    //console.log("Archivos seleccionados:", event.target.files);
-    const nuevasFotos = [...fotos, ...event.target.files];
-    //console.log("Nuevas fotos:", nuevasFotos);
-    setFotos(nuevasFotos);
-  };
+  // const handleAgregarFoto = (event) => {
+  //   const nuevasFotos = [...fotos,...event.target.files];
+  //   setFotos(nuevasFotos);
+  //   setValue("imagen", nuevasFotos); // Update the imagen field in the form
+  // };
 
-  const handleEliminarFoto = (index) => {
-    const nuevasFotos = fotos.filter((foto, i) => i !== index);
+  const handleEliminarFoto = (index: number) => {
+    const nuevasFotos = fotos.filter((_, i) => i !== index);
     setFotos(nuevasFotos);
   };
 
@@ -137,7 +112,7 @@ const ProfesionalNuevo = () => {
     }
   };
 
-  const handleEliminarTrabajo = (index) => {
+  const handleEliminarTrabajo = (index: number) => {
     const nuevosTrabajos = [...trabajos];
     nuevosTrabajos.splice(index, 1);
     setTrabajos(nuevosTrabajos);
@@ -145,13 +120,9 @@ const ProfesionalNuevo = () => {
   };
 
   const onSubmit = async (data: inputFormulario) => {
+    setMensajeError("");
     const formData = new FormData();
-
-    // console.log("Datos del formulario antes de enviar:");
-    // console.log("Trabajos:", trabajos);
-    // console.log("Valor del campo de imagen:", getValues("imagen"));
-    // console.log("Redes Sociales:", redesSociales);
-    // console.log("Fotos", fotos)
+    const { imagen, ...profesionalACrear } = data;
 
     if (trabajos.length === 0) {
       Swal.fire({
@@ -164,36 +135,33 @@ const ProfesionalNuevo = () => {
 
     trabajos.forEach((trabajo) => formData.append("trabajo", trabajo));
 
-    if (fotos.length > 0) {
-      fotos.forEach((foto, index) => formData.append(`imagen[${index}]`, foto));
-    }
-
-    // redesSociales.forEach((redSocial) => {
-    //   console.log(`URL de ${redSocial}:`, getValues(`url-${redSocial}`));
-    // });
-    // if (redesSociales.length > 0) {
-    //   redesSociales.forEach((redSocial) => {
-    //     const url = getValues(`url-${redSocial}`);
-    //     formData.append(`redes[${redSocial}]`, url); // Agregar la URL de la red social al FormData
-    //     formData.append(`redesTipo[${redSocial}]`, redSocial); // Agregar el tipo de red social al FormData
-    //   });
+    // if (fotos.length > 0) {
+    //   fotos.forEach((foto, index) => formData.append(`imagen[${index}]`, foto));
     // }
 
-    // redesSociales.forEach(({ tipo, url }) => {
-    //   formData.append('redes[]', JSON.stringify({ tipo, url }));
-    // });
-    redesSociales.forEach(({ tipo, url }) => {
-      formData.append("redes", JSON.stringify({ tipo, url }));
+    if (imagen) {
+      for (let i = 0; i < imagen.length; i++) {
+        formData.append("imagen", imagen[i]); // Se agrega cada imagen al FormData
+      }
+    }
+
+    const redes: any = [];
+    redesSociales.forEach((redSocial) => {
+      redes.push({ tipo: redSocial.tipo, url: redSocial.url });
     });
 
-    formData.append("nombre", data.nombre);
-    formData.append("apellido", data.apellido);
-    formData.append("numero", data.numero);
+    redes.forEach((red: { tipo: string; url: string }) => {
+      formData.append("redes", JSON.stringify(red));
+    });
 
-    console.log("Datos del formulario:");
-    for (let [key, value] of formData.entries()) {
-      console.log(`${key}: ${value}`);
-    }
+    formData.append("nombre", profesionalACrear.nombre);
+    formData.append("apellido", profesionalACrear.apellido);
+    formData.append("numero", profesionalACrear.numero);
+
+    // console.log("Datos del formulario:");
+    // for (let [key, value] of formData.entries()) {
+    //   console.log(`${key}: ${value}`);
+    // }
 
     try {
       const {
@@ -229,183 +197,193 @@ const ProfesionalNuevo = () => {
     }
   };
 
+  // const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  //   event.preventDefault();
+  //   const isValidForm = await handleSubmit(onSubmit);
+  //   if (!isValidForm) {
+  //     // If the form is invalid, trigger the validation manually
+  //     Object.keys(errors).forEach((key) => {
+  //       errors[key].ref.focus();
+  //     });
+  //   }
+  // };
+
   return (
-    <div className="min-h-screen px-6 ">
-      <div className="mx-auto max-w-md px-6 py-10 bg-white border-0 shadow-lg rounded-3xl">
-        <h1 className="text-2xl font-bold mb-8">Nuevo profesional</h1>
-        <form id="form" noValidate onSubmit={handleSubmit(onSubmit)}>
-          <div className="relative z-0 w-full mb-5">
-            <input
-              type="text"
-              {...register("nombre", { required: true })}
-              placeholder="Nombre"
-              className="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
-            />
-            <label
-              htmlFor="nombre"
-              className="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"
-            ></label>
-            <span className="text-sm text-red-600 hidden" id="error">
-              El nombre es obligatorio
-            </span>
-          </div>
-
-          <div className="relative z-0 w-full mb-5">
-            <input
-              type="text"
-              {...register("apellido", { required: true })}
-              placeholder="Apellido"
-              className="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
-            />
-            <label
-              htmlFor="apellido"
-              className="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"
-            ></label>
-            <span className="text-sm text-red-600 hidden" id="error">
-              El apellido es obligatorio
-            </span>
-          </div>
-
-          <div className="relative z-0 w-full ">
-            <input
-              type="text"
-              {...register("trabajo")}
-              placeholder="Trabajo/s"
-              required
-              value={nuevoTrabajo}
-              onChange={(e) => setNuevoTrabajo(e.target.value)}
-              className="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
-            />
-            <label
-              htmlFor="trabajo"
-              className="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"
-            ></label>
-          </div>
-
-          <div className="flex flex-wrap mb-4">
-            {trabajos.map((trabajo, index) => (
-              <span
-                key={index}
-                className="bg-gray-500 text-white py-1 px-2 rounded-md text-sm mr-2 mt-2 flex items-center"
-              >
-                {trabajo}
-                <MdClose
-                  className="ml-2 cursor-pointer"
-                  onClick={() => handleEliminarTrabajo(index)}
-                />
-              </span>
-            ))}
-          </div>
-
-          <button
-            type="button"
-            onClick={handleAgregarTrabajo}
-            className="bg-blue-500 hover:bg-blue-700 text-white text-xs p-2 md:py-2 md:px-4 md:text-2xs rounded-md"
-          >
-            Agregar Trabajo
-          </button>
-
-          <div className="relative z-0 w-full mb-5">
-            <input
-              type="text"
-              {...register("numero", { required: true })}
-              placeholder="Numero de contacto"
-              className="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
-            />
-            <label
-              htmlFor="numero"
-              className="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"
-            ></label>
-            <span className="text-sm text-red-600 hidden" id="error">
-              El número es obligatorio
-            </span>
-          </div>
-
-          {/* Selección de redes sociales */}
-          <div className="flex flex-col mb-5 mt-3">
-            <span>Red social (opcional)</span>
-            <select
-              className="p-2 border rounded-md bg-gray-100"
-              value=""
-              onChange={handleRedSocialChange}
-            >
-              <option value="" disabled>
-                [Seleccione]
-              </option>
-              <option value="Twitter">Twitter</option>
-              <option value="Instagram">Instagram</option>
-              <option value="Facebook">Facebook</option>
-              <option value="Linkedin">Linkedin</option>
-              <option value="Web">Web</option>
-            </select>
-          </div>
-
-          {/* Campos de entrada de URL, visibles solo para las redes sociales seleccionadas */}
-          {redesSociales.map((redSocial, index) => (
-            <div
-              key={index}
-              className="relative z-0 w-full mb-5 flex items-center"
-            >
+    
+      <div className="min-h-screen px-6 ">
+        <div className="mx-auto max-w-md px-6 py-10 bg-white border-0 shadow-lg rounded-3xl">
+          <h1 className="text-2xl font-bold mb-8">Nuevo profesional</h1>
+          <form id="form" onSubmit={handleSubmit(onSubmit)}>
+            {/* <form onSubmit={handleFormSubmit}> */}
+            <div className="relative z-0 w-full mb-5">
               <input
                 type="text"
-                placeholder={`Ingrese la URL de ${redSocial.tipo}`}
-                className="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200 mr-3"
-                {...register(`redes.${index}.url`)}
-              />
-              <label
-                htmlFor={`redes.${index}.url`}
-                className="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"
-              ></label>
-              <MdClose
-                className="cursor-pointer"
-                onClick={() => handleEliminarRedSocial(redSocial)}
+                {...register("nombre", { required: true })}
+                placeholder="Nombre"
+                required
+                className="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
               />
             </div>
-          ))}
 
-          <div className="flex flex-col mb-2">
-            <span>Imagen</span>
-            <input
-              type="file"
-              {...register("imagen")}
-              onChange={handleAgregarFoto}
-              multiple
-              className="p-2 border rounded-md bg-gray-100"
-              accept="image/*"
-            />
-          </div>
+            <div className="relative z-0 w-full mb-5">
+              <input
+                type="text"
+                {...register("apellido", { required: true })}
+                placeholder="Apellido"
+                required
+                className="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
+              />
+              {/* <label
+              htmlFor="apellido"
+              className="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"
+            ></label> */}
+            </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            {fotos.map((foto, index) => (
-              <div key={index}>
-                <Image
-                  src={URL.createObjectURL(foto)}
-                  alt={`Foto ${index + 1}`}
-                  className="rounded-t shadow-md h-40 w-full object-cover"
-                  width={100}
-                  height={100}
-                />
-                <button
-                  type="button"
-                  onClick={() => handleEliminarFoto(index)}
-                  className="bg-red-500 hover:bg-red-700 text-white py-2 px-4 transition-all rounded-b-xl w-full"
+            <div className="relative z-0 w-full ">
+              <input
+                type="text"
+                {...register("trabajo")}
+                placeholder="Trabajo/s"
+                value={nuevoTrabajo}
+                onChange={(e) => setNuevoTrabajo(e.target.value)}
+                className="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
+              />
+              {/* <label
+              htmlFor="trabajo"
+              className="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"
+            ></label> */}
+            </div>
+
+            <div className="flex flex-wrap mb-4">
+              {trabajos.map((trabajo, index) => (
+                <span
+                  key={index}
+                  className="bg-gray-500 text-white py-1 px-2 rounded-md text-sm mr-2 mt-2 flex items-center"
                 >
-                  Eliminar
-                </button>
+                  {trabajo}
+                  <MdClose
+                    className="ml-2 cursor-pointer"
+                    onClick={() => handleEliminarTrabajo(index)}
+                  />
+                </span>
+              ))}
+            </div>
+
+            <button
+              type="button"
+              onClick={handleAgregarTrabajo}
+              className="bg-blue-500 hover:bg-blue-700 text-white text-xs p-2 md:py-2 md:px-4 md:text-2xs rounded-md"
+            >
+              Agregar Trabajo
+            </button>
+
+            <div className="relative z-0 w-full mb-5">
+              <input
+                type="text"
+                {...register("numero", { required: true })}
+                placeholder="Numero de contacto"
+                required
+                className="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
+              />
+              {/* <label
+              htmlFor="numero"
+              className="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"
+            ></label> */}
+            </div>
+
+            {/* Selección de redes sociales */}
+            <div className="flex flex-col mb-5 mt-3">
+              <span>Red social (opcional)</span>
+              <select
+                className="p-2 border rounded-md bg-gray-100"
+                value=""
+                onChange={handleRedSocialChange}
+              >
+                <option value="" disabled>
+                  [Seleccione]
+                </option>
+                <option value="Twitter">Twitter</option>
+                <option value="Instagram">Instagram</option>
+                <option value="Facebook">Facebook</option>
+                <option value="Linkedin">Linkedin</option>
+                <option value="Web">Web</option>
+              </select>
+            </div>
+
+            {/* Campos de entrada de URL, visibles solo para las redes sociales seleccionadas */}
+            {redesSociales.map((redSocial, index) => (
+              <div
+                key={index}
+                className="relative z-0 w-full mb-5 flex items-center"
+              >
+                <input
+                  type="text"
+                  placeholder={`Ingrese la URL de ${redSocial.tipo}`}
+                  className="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200 mr-3"
+                  {...register(`redes.${index}.url`)}
+                  onChange={(e) => handleUrlChange(e, redSocial.tipo)}
+                />
+                <label
+                  htmlFor={`redes.${index}.url`}
+                  className="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"
+                ></label>
+                <MdClose
+                  className="cursor-pointer"
+                  onClick={() => handleEliminarRedSocial(redSocial)}
+                />
               </div>
             ))}
-          </div>
 
-          <button
-            type="submit"
-            disabled={!isValid}
-            className="w-full px-6 py-3 mt-3 text-lg text-white transition-all duration-150 ease-linear rounded-lg shadow outline-none bg-sky-500 hover:bg-sky-600 hover:shadow-lg focus:outline-none"
-          >
-            Registrar
-          </button>
-        </form>
+            <div className="flex flex-col mb-2">
+              <span>Imagen</span>
+              <input
+                type="file"
+                {...register("imagen")}
+                onChange={(e) => {
+                  if (e.target.files) {
+                    setFotos([...fotos, ...Array.from(e.target.files)]);
+                  }
+                }}
+                className="pb-2 block w-full px-0 mt-2 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
+                multiple
+                required
+              />
+            </div>
+
+            <div className="flex flex-wrap mb-4 mt-4">
+              {fotos.map((foto, index) => (
+                <div key={index} className="relative mr-2 mb-2">
+                  <div className="h-24 w-24 relative rounded-md overflow-hidden">
+                    <Image
+                      src={URL.createObjectURL(foto)}
+                      alt={`Imagen ${index + 1}`}
+                      layout="fill"
+                      objectFit="cover"
+                    />
+                  </div>
+                  <div className="absolute top-0 right-0">
+                    <button
+                      className="text-white bg-red-500 rounded-full p-1 hover:bg-red-700 transition duration-300"
+                      onClick={() => handleEliminarFoto(index)}
+                    >
+                      <MdClose className="text-xl" />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <button
+              type="submit"
+              // disabled={!isValid}
+              className="w-full px-6 py-3 mt-3 text-lg text-white transition-all duration-150 ease-linear rounded-lg shadow outline-none bg-sky-500 hover:bg-sky-600 hover:shadow-lg focus:outline-none"
+            >
+              Registrar
+            </button>
+          </form>
+        </div>
       </div>
-    </div>
+    
   );
 };
 

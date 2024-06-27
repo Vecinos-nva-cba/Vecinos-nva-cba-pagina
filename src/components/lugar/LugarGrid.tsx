@@ -24,7 +24,7 @@ export const LugarGrid = ({ lugares, totalPaginas }: Props) => {
   };
 
   return (
-    <div className="m-8">
+    <div className="m-8 flex flex-col justify-center items-center">
       {/* Campo de búsqueda */}
       <input
         type="text"
@@ -35,7 +35,7 @@ export const LugarGrid = ({ lugares, totalPaginas }: Props) => {
       />
 
       {/* Lista de lugares filtrados */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 mx-auto">
         {filteredLugares.map((lugar) => (
           <LugarCard key={lugar.nombre + lugar.barrio} lugar={lugar} />
         ))}
