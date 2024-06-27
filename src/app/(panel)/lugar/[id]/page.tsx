@@ -43,9 +43,9 @@ export default async function LugarPage({ params }: Props) {
           />
         )}
       </div>
-      <div className="flex flex-col items-start justify-center md:justify-start mx-auto md:mx-0 ml-5 px-2 pb-4 md:pr-5 md:mt-10 mr-5 ">
+      <div className="flex flex-col items-start justify-center md:justify-start md:items-center mx-auto md:mx-0 ml-5 px-2 pb-4 md:pr-5 md:mt-10 mr-5 ">
         <div className="mt-2">
-          <h1 className="text-2xl md:text-3xl font-bold">{lugar?.nombre}</h1>
+          <h1 className="text-2xl md:text-4xl font-bold">{lugar?.nombre}</h1>
         </div>
         <div className="flex flex-row items-center mt-5">
           <h2 className="font-bold">Barrio o zona:</h2>
@@ -80,9 +80,9 @@ export default async function LugarPage({ params }: Props) {
             ))}
         </div>
 
-        {lugar?.localizacion && (
+        {lugar?.localizacion && lugar.localizacion !== "" && (
           <div className="text-blue-500 hover:text-blue-700 mt-4 md:mt-2">
-            <Link href={lugar.localizacion}>Ir a la ubicacion</Link>
+            <Link href={lugar.localizacion}>Ir a la ubicación</Link>
           </div>
         )}
 

@@ -8,7 +8,11 @@ Listo:
 
 
  Tareas
- - achicar las cards en mobile 
- - Se ve mal las cards de grupos en mobile 
  - Agregar animaciones 
- - recorrer y obtener grupos/profesional/lugar de la bd 
+ - mover swipper para la izquierda
+ - que no se muestre 'ir a la ubicacion'
+ - tamaño card en principal
+ - recortar imagen cuando guardo
+ - ver el tema tipografia
+  
+ 

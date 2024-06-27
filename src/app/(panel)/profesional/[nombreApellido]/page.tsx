@@ -1,5 +1,5 @@
-
 import { getProfesionalConNombre } from "@/actions";
+import { MuestraLugar, MuestraLugarMobile } from "@/components";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -27,15 +27,33 @@ export default async function ProfesionalPage({ params }: Props) {
   }
 
   return (
-    <div className="flex flex-col md:flex-row justify-center md:justify-normal md:ml-10 md:pl-12 items-start md:items-center">
+    <div className="flex flex-col min-h-[800px] md:flex-row justify-center md:justify-normal md:ml-10 md:pl-12 items-start md:items-center">
       <div className="flex justify-start md:p-10  m-5 md:m-10 md:ml-10">
-        <Image
-          src={profesional.imagen[0].url}
-          alt="Foto"
-          width={400}
-          height={200}
-          className="rounded-lg"
-        />
+        {profesional.imagen.length === 1 ? (
+          <Image
+            src={profesional.imagen[0].url}
+            alt="Foto"
+            width={600}
+            height={500}
+            className="rounded-lg"
+          />
+        ) : (
+          <div className="col-span-1 md:col-span-2">
+            {/* Desktop */}
+            <MuestraLugar
+              titulo={profesional.nombre}
+              imagenes={profesional.imagen.map((imagen: any) => imagen.url)}
+              className="hidden md:block"
+            />
+
+            {/* Mobile */}
+            <MuestraLugarMobile
+              titulo={profesional.nombre}
+              imagenes={profesional.imagen.map((imagen: any) => imagen.url)}
+              className="block md:hidden"
+            />
+          </div>
+        )}
       </div>
       <div className="flex flex-col items-start justify-center md:justify-start mx-auto md:mx-0 ml-5 px-2 pb-4 md:pr-5 md:mt-10 mr-5">
         <h1 className="text-2xl md:text-3xl font-bold mb-4">
