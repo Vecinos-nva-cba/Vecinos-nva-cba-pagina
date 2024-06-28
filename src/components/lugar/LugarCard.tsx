@@ -11,7 +11,7 @@ export const LugarCard = ({ lugar }: Props) => {
 
   return (
     <div className="flex justify-center md:justify-start">
-      <div className="relative flex w-96 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
+      <div className="relative flex w-96 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-xl shadow-gray-400">
         <div className="relative mx-4 -mt-6 h-56 overflow-hidden rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-lg shadow-blue-gray-500/40">
           <Image src={imagenes[0].url as string} alt={nombre} layout="fill" />
         </div>

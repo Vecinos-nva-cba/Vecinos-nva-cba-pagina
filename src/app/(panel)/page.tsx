@@ -56,7 +56,7 @@ export default async function PanelPage() {
   return (
     <div className="  ">
       <section className="md:min-h-full">
-        <div className="relative w-full min-h-80 h-[70vh] md:h-[50vh] lg:h-[90vh]">
+        <div className="relative w-full min-h-80 h-[80vh] md:h-[50vh] lg:h-[90vh]">
           <div className="absolute inset-0 bg-black opacity-100"></div>
           {/* Fondo oscuro semi-transparente */}
           <Image
@@ -64,11 +64,11 @@ export default async function PanelPage() {
             alt="Foto portada"
             width={1200} // add this
             height={800} // add this
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 0vw, 33vw"
             style={{
               objectFit: "cover",
               width: "100%",
-              height: "100vh",
+              height: "100%",
             }}
             className="object-cover object-center opacity-60"
           />
@@ -86,7 +86,7 @@ export default async function PanelPage() {
         </div>
       </section>
 
-      <section className="flex flex-wrap relative w-full justify-center bg-sky-200">
+      <section className="flex flex-wrap w-full justify-center bg-sky-200 ">
         <div className="flex w-full">
           <h1
             className={`flex justify-center items-center bg-sky-500 w-full relative py-3 md:py-5 text-xl lg:text-4xl ${fontTitulo.className}`}
@@ -129,7 +129,7 @@ export default async function PanelPage() {
         </p>
       </section>
 
-      <section>
+      <section className="">
         <div className="flex w-full ">
           <h1
             className={`flex justify-center items-center bg-sky-500 w-full relative py-3 md:py-5 text-xl lg:text-4xl ${fontTitulo.className}`}
