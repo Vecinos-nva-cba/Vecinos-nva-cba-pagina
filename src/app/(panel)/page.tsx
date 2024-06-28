@@ -86,7 +86,7 @@ export default async function PanelPage() {
         </div>
       </section>
 
-      <section className="flex flex-wrap w-full justify-center">
+      <section className="flex flex-wrap relative w-full justify-center">
         <div className="flex w-full">
           <h1
             className={`flex justify-center items-center bg-sky-500 w-full relative py-3 md:py-5 text-xl lg:text-4xl ${fontTitulo.className}`}

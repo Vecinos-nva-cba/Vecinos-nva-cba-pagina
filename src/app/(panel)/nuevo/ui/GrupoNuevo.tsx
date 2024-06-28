@@ -69,7 +69,7 @@ export const GrupoNuevo = () => {
   return (
     <div className="min-h-screen  px-6 ">
       <div className="mx-auto max-w-md px-6 py-10 bg-white border-0 shadow-lg rounded-3xl">
-        <h1 className="text-2xl font-bold mb-8">Nuevo grupo</h1>
+        <h1 className="text-2xl font-bold mb-8 text-black">Nuevo grupo</h1>
         <form id="form" onSubmit={handleSubmit(onSubmit)}>
           <div className="relative z-0 w-full mb-5">
             <input

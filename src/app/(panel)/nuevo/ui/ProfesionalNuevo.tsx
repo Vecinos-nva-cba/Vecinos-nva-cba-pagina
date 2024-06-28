@@ -213,7 +213,7 @@ export const ProfesionalNuevo = () => {
     
       <div className="min-h-screen px-6 ">
         <div className="mx-auto max-w-md px-6 py-10 bg-white border-0 shadow-lg rounded-3xl">
-          <h1 className="text-2xl font-bold mb-8">Nuevo profesional</h1>
+          <h1 className="text-2xl font-bold mb-8 text-black">Nuevo profesional</h1>
           <form id="form" onSubmit={handleSubmit(onSubmit)}>
             {/* <form onSubmit={handleFormSubmit}> */}
             <div className="relative z-0 w-full mb-5">
@@ -294,13 +294,13 @@ export const ProfesionalNuevo = () => {
 
             {/* Selección de redes sociales */}
             <div className="flex flex-col mb-5 mt-3">
-              <span>Red social (opcional)</span>
+              <span className="text-black">Red social (opcional)</span>
               <select
                 className="p-2 border rounded-md bg-gray-100"
                 value=""
                 onChange={handleRedSocialChange}
               >
-                <option value="" disabled>
+                <option value="" disabled className="text-black">
                   [Seleccione]
                 </option>
                 <option value="Twitter">Twitter</option>
@@ -336,7 +336,7 @@ export const ProfesionalNuevo = () => {
             ))}
 
             <div className="flex flex-col mb-2">
-              <span>Imagen</span>
+              <span className="text-black">Imagen</span>
               <input
                 type="file"
                 {...register("imagen")}
