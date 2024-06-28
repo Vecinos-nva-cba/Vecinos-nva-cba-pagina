@@ -12,9 +12,10 @@ import { getLugarById } from "@/actions/lugar/get-lugar-by-id";
 
 export default async function PanelPage() {
   const grupoIds = [
-    "5432569e-4d2d-481a-8ccf-4df8bf41a61a",
-    "1bcdb26a-f27d-42a1-a914-b9ec29014ff9",
-    "a85d87d7-2045-4f0a-9efd-bb7f52f04dd1",
+    // "5432569e-4d2d-481a-8ccf-4df8bf41a61a",
+    // "1bcdb26a-f27d-42a1-a914-b9ec29014ff9",
+    // "a85d87d7-2045-4f0a-9efd-bb7f52f04dd1",
+    "e21d8b6e-1f75-4f90-90d5-12a13d1f5678"
   ];
   const grupoData = await getGrupoById(grupoIds);
 
@@ -36,17 +37,20 @@ export default async function PanelPage() {
   };
 
   const lugarId1 = await getLugarOrDefault(
-    "3b36d79f-e857-469a-a86b-4b1cabfe640b"
+    "c3d8b7a1-5e12-4f90-90d5-12a13d1f5680"
   );
-  const lugarId2 = await getLugarOrDefault(
-    "d2e78118-c5ee-4985-acba-9b2f2d6ec6a2"
-  );
-  const lugarId3 = await getLugarOrDefault(
-    "e7f58c01-00b6-4e02-b2b9-3d40e2814acf"
-  );
+  // const lugarId1 = await getLugarOrDefault(
+  //   "3b36d79f-e857-469a-a86b-4b1cabfe640b"
+  // );
+  // const lugarId2 = await getLugarOrDefault(
+  //   "d2e78118-c5ee-4985-acba-9b2f2d6ec6a2"
+  // );
+  // const lugarId3 = await getLugarOrDefault(
+  //   "e7f58c01-00b6-4e02-b2b9-3d40e2814acf"
+  // );
   lugares.push(lugarId1);
-  lugares.push(lugarId2);
-  lugares.push(lugarId3);
+  // lugares.push(lugarId2);
+  // lugares.push(lugarId3);
   // console.log(grupo1);
 
   return (
