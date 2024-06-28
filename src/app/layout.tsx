@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { Inter, Alatsi, Acme, ADLaM_Display,Alata } from "next/font/google";
+import { Inter, Alatsi, Acme,Alata } from "next/font/google";
 import "./globals.css";
 import { TopMenu } from "@/components";
 
 const inter = Inter({ subsets: ["latin"] });
 const alatsi = Alatsi({ subsets: ["latin"], weight: "400", variable: "--font-alatsi", display: "swap" });
 const acme = Acme({ subsets: ["latin"], weight: "400", variable: "--font-alatsi", display: "swap" });
-const ADLaMDisplay = ADLaM_Display({ subsets: ["latin"], weight: "400", variable: "--font-alatsi", display: "swap" });
+
 const alata = Alata({ subsets: ["latin"], weight: "400", variable: "--font-alatsi", display: "swap" });
 
 export const metadata: Metadata = {

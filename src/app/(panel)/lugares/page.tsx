@@ -1,4 +1,5 @@
-import { getLugarPaginacion } from "@/actions";
+
+import { getLugarPaginacion } from "@/actions/lugar/get-lugar-paginacion";
 import { LugarGrid, Paginacion } from "@/components";
 
 interface Props {

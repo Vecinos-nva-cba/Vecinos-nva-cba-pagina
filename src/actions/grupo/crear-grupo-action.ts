@@ -15,8 +15,8 @@ const GrupoSchema = z.object({
     url: z.string().min(3).max(500),
 })
 
-
-export const crearGrupo = async (formData: FormData) => {
+console.log('Importing crear-grupo module...')
+export const crearGrupoAction = async (formData: FormData) => {
     try {
         const data = Object.fromEntries(formData.entries());
         console.log("Datos del formulario:", data);

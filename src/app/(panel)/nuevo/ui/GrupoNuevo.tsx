@@ -1,5 +1,7 @@
 "use client";
-import { crearGrupo } from "@/actions";
+
+
+import { crearGrupoAction } from "@/actions/grupo/crear-grupo-action";
 import { useRouter, redirect } from "next/navigation";
 import React from "react";
 import { useForm } from "react-hook-form";
@@ -13,7 +15,7 @@ interface inputFormulario {
   imagen: FileList;
 }
 
-const GrupoNuevo = () => {
+export const GrupoNuevo = () => {
   const router = useRouter();
   const {
     handleSubmit,
@@ -42,7 +44,7 @@ const GrupoNuevo = () => {
       formData.append("imagen", data.imagen[0]);
     }
 
-    const { ok, grupo: grupoCreado } = await crearGrupo(formData);
+    const { ok, grupo: grupoCreado } = await crearGrupoAction(formData);
 
     if (!ok) {
       Swal.fire({
@@ -142,4 +144,4 @@ const GrupoNuevo = () => {
   );
 };
 
-export default GrupoNuevo;
+

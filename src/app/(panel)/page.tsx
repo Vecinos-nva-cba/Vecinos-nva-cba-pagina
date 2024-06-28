@@ -3,11 +3,12 @@ import "animate.css";
 import { fontTitulo } from "@/config/fonts";
 import { GrupoCard, LugarCard } from "@/components";
 import { Card } from "@/components/dashboard/Card";
-import { getGrupoPaginacion, getLugarById } from "@/actions";
-import { getGrupoById } from "@/actions/grupo/get-grupo-by-id";
+
 import { SwipperCard } from "@/components/dashboard/SwipperCard";
 import { Grupo, Lugar } from "@/interfaces";
 import AnimatedOnScroll from "@/components/ui/AnimateScroll";
+import { getGrupoById } from "@/actions/grupo/get-grupo-by-id";
+import { getLugarById } from "@/actions/lugar/get-lugar-by-id";
 
 export default async function PanelPage() {
   const grupoIds = [
@@ -57,8 +58,14 @@ export default async function PanelPage() {
           <Image
             src={`/1.jpg`}
             alt="Foto portada"
-            layout="fill"
-            objectFit="cover"
+            width={1200} // add this
+            height={800} // add this
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            style={{
+              objectFit: "cover",
+              width: "100%",
+              height: "100vh",
+            }}
             className="object-cover object-center opacity-60"
           />
           <div

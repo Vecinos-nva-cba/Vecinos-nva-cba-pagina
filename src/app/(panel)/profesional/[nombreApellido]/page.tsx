@@ -1,4 +1,5 @@
-import { getProfesionalConNombre } from "@/actions";
+
+import { getProfesionalConNombre } from "@/actions/profesional/get-profesional-con-nombre";
 import { MuestraLugar, MuestraLugarMobile } from "@/components";
 import Image from "next/image";
 import Link from "next/link";

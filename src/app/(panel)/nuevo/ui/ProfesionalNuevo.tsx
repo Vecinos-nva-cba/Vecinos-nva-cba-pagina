@@ -4,10 +4,11 @@ import { MdClose } from "react-icons/md";
 import Swal from "sweetalert2";
 import { useForm } from "react-hook-form";
 import { useRouter, redirect } from "next/navigation";
-import { crearProfesional } from "@/actions";
+
 import Image from "next/image";
 // import { useJob } from "@/hooks/useJob";
 import clsx from "clsx";
+import { crearProfesional } from "@/actions/profesional/crear-profesional";
 
 const Redes = ["Instagram", "Facebook", "Twitter", "Linkedin", "Web"];
 interface inputFormulario {
@@ -19,7 +20,7 @@ interface inputFormulario {
   redes: { tipo: string; url: string }[];
 }
 
-const ProfesionalNuevo = () => {
+export const ProfesionalNuevo = () => {
   // const { onChangue, onSubmit, nuevoTrabajo} = useJob()
   const [mensajeError, setMensajeError] = useState("");
   // Estado para almacenar las redes sociales seleccionadas
@@ -387,4 +388,4 @@ const ProfesionalNuevo = () => {
   );
 };
 
-export default ProfesionalNuevo;
+

@@ -4,7 +4,8 @@ import { useForm } from "react-hook-form";
 import { MdClose } from "react-icons/md";
 import Swal from "sweetalert2";
 import Image from "next/image";
-import { crearLugar } from "@/actions";
+import { crearLugar } from "@/actions/lugar/crear-lugar";
+
 
 interface inputFomulario {
   nombre: string;
@@ -16,7 +17,7 @@ interface inputFomulario {
   direccion: { calle: string; altura: number };
 }
 
-const LugarNuevo = () => {
+export const LugarNuevo = () => {
   // Estado para almacenar las redes sociales seleccionadas
   const [redesSociales, setRedesSociales] = useState<
     { tipo: string; url: string }[]
@@ -405,4 +406,4 @@ const LugarNuevo = () => {
   );
 };
 
-export default LugarNuevo;
+

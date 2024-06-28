@@ -11,7 +11,7 @@ interface Props {
   };
 }
 
-const CardClient: React.FC<Props> = ({ card }) => {
+export const CardClient: React.FC<Props> = ({ card }) => {
   const swipeHandlers = useSwipeable({
     onSwipedLeft: () => console.log('You swiped left.'),
     onSwipedRight: () => console.log('You swiped right.'),
@@ -24,4 +24,3 @@ const CardClient: React.FC<Props> = ({ card }) => {
   );
 };
 
-export default CardClient;

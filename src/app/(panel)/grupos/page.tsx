@@ -1,4 +1,5 @@
-import { getGrupoPaginacion } from "@/actions";
+
+import { getGrupoPaginacion } from "@/actions/grupo/get-grupo-paginacion";
 import { GrupoCard, GrupoGrid, Paginacion } from "@/components";
 
 

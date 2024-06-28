@@ -1,4 +1,5 @@
-import { getLugarById } from "@/actions";
+
+import { getLugarById } from "@/actions/lugar/get-lugar-by-id";
 import { MuestraLugar, MuestraLugarMobile } from "@/components";
 import Link from "next/link";
 

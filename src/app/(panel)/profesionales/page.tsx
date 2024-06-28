@@ -1,4 +1,5 @@
-import { getProfesionalPaginacion } from "@/actions";
+
+import { getProfesionalPaginacion } from "@/actions/profesional/get-profecional-paginacion";
 import { Paginacion, ProfesionalGrid } from "@/components";
 
 

@@ -1,8 +1,9 @@
 "use client";
 import React, { useState } from "react";
-import GrupoNuevo from "./ui/GrupoNuevo";
-import ProfesionalNuevo from "./ui/ProfesionalNuevo";
-import LugarNuevo from "./ui/LugarNuevo";
+import {GrupoNuevo} from "./ui/GrupoNuevo";
+import { ProfesionalNuevo } from "./ui/ProfesionalNuevo";
+import { LugarNuevo } from "./ui/LugarNuevo";
+
 
 const NuevoPage = () => {
   const [tipoSeleccionado, setTipoSeleccionado] = useState("grupo");
