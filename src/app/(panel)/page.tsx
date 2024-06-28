@@ -75,7 +75,7 @@ export default async function PanelPage() {
           <div
             className={`absolute inset-0 flex flex-col justify-center items-center px-5 text-center mg:pb-20 animate__animated animate__fadeInDown`}
           >
-            <h1 className="text-xl md:text-4xl lg:text-5xl text-sky-500 font-bold">
+            <h1 className="text-2xl md:text-4xl lg:text-5xl text-sky-500 font-bold">
               Por una vecindad unida
             </h1>
             <p className="text-xs md:text-lg lg:text-xl font-bold text-white">
@@ -86,7 +86,7 @@ export default async function PanelPage() {
         </div>
       </section>
 
-      <section className="flex flex-wrap relative w-full justify-center">
+      <section className="flex flex-wrap relative w-full justify-center bg-sky-200">
         <div className="flex w-full">
           <h1
             className={`flex justify-center items-center bg-sky-500 w-full relative py-3 md:py-5 text-xl lg:text-4xl ${fontTitulo.className}`}
