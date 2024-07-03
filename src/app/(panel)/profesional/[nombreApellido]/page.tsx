@@ -75,7 +75,7 @@ export default async function ProfesionalPage({ params }: Props) {
             <div className="flex flex-col">
               <h1 className=" mb-1">Mis redes sociales:</h1>
               {profesional.redesSociales.map((red) => (
-                <Link href={red.url} key={red.url} passHref>
+                <Link href={red.url} key={red.url} passHref className="flex flex-row">
                   {red.tipo === "Instagram" && (
                     <IoLogoInstagram className="text-3xl md:text-4xl text-pink-500 hover:text-pink-700 cursor-pointer mr-2" />
                   )}
