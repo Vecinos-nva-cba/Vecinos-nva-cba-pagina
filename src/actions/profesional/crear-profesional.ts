@@ -1,6 +1,6 @@
 "use server";
 
-import { z } from "zod";
+import { any, z } from "zod";
 import prisma from "@/lib/prisma";
 import { v2 as cloudinary } from "cloudinary";
 import { Profesional } from "@prisma/client";
@@ -31,6 +31,10 @@ const ProfesionalSchema = z.object({
   numero: z.string().min(8).max(15),
   redes: RedesArraySchema.optional(),
 });
+
+const capitalizeFirstLetter = (str: string) => {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
 
 // export const crearProfesional = async (formData: FormData) => {
 //   console.log("Form data:", formData);
@@ -137,17 +141,17 @@ export const crearProfesional = async (formData: FormData) => {
     const redes = formData.getAll("redes").map((r) => JSON.parse(r as string));
 
     const profesionalData = {
-      nombre: formData.get("nombre") as string,
-      apellido: formData.get("apellido") as string,
+      nombre: capitalizeFirstLetter(formData.get("nombre") as string),
+      apellido: capitalizeFirstLetter(formData.get("apellido") as string),
       numero: formData.get("numero") as string,
-      trabajo: trabajos,
+      trabajo: trabajos.map( t => capitalizeFirstLetter(t)),
     };
 
     console.log("Profesional data:", profesionalData);
 
     const redesData = redes.map((r) => ({
       url: r.url,
-      tipo: r.tipo,
+      tipo: r.tipo ,
     }));
 
     const profesionalValido = ProfesionalSchema.safeParse(profesionalData);
