@@ -16,6 +16,8 @@
     transition: opacity 0.25s;
     z-index: 2;
     cursor: pointer;
+    
+    
   }
   
   .card .social-link1,.card .social-link2 {
@@ -29,6 +31,7 @@
     text-decoration: none;
     transition: 0.25s;
     border-radius: 50px;
+    
   }
   
   .card svg {

@@ -4,7 +4,7 @@ import "./style.css";
 
 export const RedesSociales = () => {
   return (
-    <div className="card bg-celeste-500 rounded-lg">
+    <div className="card bg-celeste-500 rounded-lg ">
       <Link href="https://www.instagram.com/vecinosdenuevacordoba/" className="social-link1">
         <svg
           viewBox="0 0 16 16"
