@@ -16,5 +16,5 @@ A revisar
 
 
  Tareas
- - Guardar con primera en mayuscula lugar y profesioanl
+ - cambiar configuracion opcional de altura
 

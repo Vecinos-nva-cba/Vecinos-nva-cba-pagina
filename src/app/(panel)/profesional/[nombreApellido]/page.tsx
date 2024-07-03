@@ -44,7 +44,7 @@ export default async function ProfesionalPage({ params }: Props) {
             <MuestraLugar
               titulo={profesional.nombre}
               imagenes={profesional.imagen.map((imagen: any) => imagen.url)}
-              className="hidden md:block"
+              className="hidden md:block "
             />
 
             {/* Mobile */}

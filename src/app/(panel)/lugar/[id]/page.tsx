@@ -46,7 +46,7 @@ export default async function LugarPage({ params }: Props) {
           />
         )}
       </div>
-      <div className="flex flex-col items-start justify-center md:justify-start md:items-center mx-auto md:mx-0 ml-5 px-2 pb-4 md:pr-5 md:mt-10 mr-5 ">
+      <div className="flex flex-col items-start justify-center md:justify-center md:pb-[150px] md:mb-[120px] md:items-center mx-auto md:mx-0 ml-5 px-2 pb-4 md:pr-5 md:mt-10 mr-5 ">
         <div className="mt-2">
           <h1 className="text-2xl md:text-4xl font-bold">{lugar?.nombre}</h1>
         </div>

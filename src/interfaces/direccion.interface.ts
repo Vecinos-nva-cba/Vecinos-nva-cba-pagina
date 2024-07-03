@@ -1,4 +1,4 @@
 export interface Direccion {
     calle: string;
-    altura: number;
+    altura: number | null;
   }

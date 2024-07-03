@@ -6,7 +6,6 @@ import Swal from "sweetalert2";
 import Image from "next/image";
 import { crearLugar } from "@/actions/lugar/crear-lugar";
 
-
 interface inputFomulario {
   nombre: string;
   barrio: string;
@@ -30,7 +29,7 @@ export const LugarNuevo = () => {
   const [nuevoTipoLugar, setNuevoTipoLugar] = useState("");
 
   const [direccion, setDireccion] = useState({
-    calle: '',
+    calle: "",
     altura: 0,
   });
   const {
@@ -43,15 +42,16 @@ export const LugarNuevo = () => {
     watch,
   } = useForm<inputFomulario>({
     defaultValues: {
-      tipo: [''],
+      tipo: [""],
       imagenes: undefined,
       redes: [],
-      
     },
   });
 
   // Manejador de cambio para la selección de la red social
-  const handleRedSocialChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleRedSocialChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
     const redSocial = event.target.value;
     const nuevaRedSocial = { tipo: redSocial, url: "" };
 
@@ -68,7 +68,10 @@ export const LugarNuevo = () => {
   };
 
   // Manejador para eliminar una red social seleccionada
-  const handleEliminarRedSocial = (redSocial: { tipo: string; url: string }) => {
+  const handleEliminarRedSocial = (redSocial: {
+    tipo: string;
+    url: string;
+  }) => {
     const nuevasRedesSociales = redesSociales.filter((rs) => rs !== redSocial);
     setRedesSociales(nuevasRedesSociales);
     setMostrarCamposUrl({
@@ -77,7 +80,10 @@ export const LugarNuevo = () => {
     });
   };
 
-  const handleUrlChange = (event: React.ChangeEvent<HTMLInputElement>, tipo: string) => {
+  const handleUrlChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    tipo: string
+  ) => {
     const url = event.target.value;
     const redSocial = redesSociales.find((rs) => rs.tipo === tipo);
     if (redSocial) {
@@ -136,11 +142,10 @@ export const LugarNuevo = () => {
     console.log("lugarACrear.direccion:", lugarACrear.direccion);
     formData.append("direccion", JSON.stringify(lugarACrear.direccion));
 
-    if (imagenes) {
-      for (let i = 0; i < imagenes.length; i++) {
-        formData.append("imagenes", imagenes[i]);
-      }
-    }
+    const filesArray = [...fotos].reverse(); // Revertir el orden de la array de archivos
+    filesArray.forEach((file) => {
+      formData.append("imagenes", file);
+    });
 
     if (tiposLugar.length === 0) {
       Swal.fire({
@@ -197,24 +202,6 @@ export const LugarNuevo = () => {
     }
   };
 
-  const validateForm = (data: inputFomulario) => {
-    const errors: any = {};
-    if (!data.nombre) {
-      errors.nombre = "Nombre is required";
-    }
-    if (!data.barrio) {
-      errors.barrio = "Barrio is required";
-    }
-    if (!data.direccion.calle) {
-      errors.calle = "Calle is required";
-    }
-    if (data.direccion.altura > 20) {
-      errors.altura = "Altura must be less than or equal to 20";
-    }
-    // Add validation for other fields as needed
-    return errors;
-  };
-
   return (
     <div className="min-h-screen px-6 ">
       <div className="mx-auto max-w-md px-6 py-10 bg-white border-0 shadow-lg rounded-3xl">
@@ -243,9 +230,8 @@ export const LugarNuevo = () => {
             <input
               type="number"
               {...register("direccion.altura", {
-                required: true,
-                valueAsNumber: true,
                 
+                valueAsNumber: true,
               })}
               placeholder="Altura"
               required
@@ -269,7 +255,6 @@ export const LugarNuevo = () => {
               {...register("tipo")}
               placeholder="Tipo de lugar"
               value={nuevoTipoLugar}
-              
               onChange={(e) => setNuevoTipoLugar(e.target.value)}
               className="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
             />
@@ -303,7 +288,7 @@ export const LugarNuevo = () => {
             <input
               type="text"
               name="localizacion"
-              placeholder="Localizacion (opcional)"
+              placeholder="Ubicacion en Google Maps (opcional)"
               className="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
             />
 
@@ -356,7 +341,7 @@ export const LugarNuevo = () => {
           ))}
 
           <div className="flex flex-col mb-2">
-            <span>Imagen</span>
+            <span>Imagenes</span>
             <input
               type="file"
               {...register("imagenes")}
@@ -384,6 +369,7 @@ export const LugarNuevo = () => {
                 </div>
                 <div className="absolute top-0 right-0">
                   <button
+                    type="button"
                     className="text-white bg-red-500 rounded-full p-1 hover:bg-red-700 transition duration-300"
                     onClick={() => handleEliminarFoto(index)}
                   >
@@ -406,4 +392,7 @@ export const LugarNuevo = () => {
   );
 };
 
-
+// const filesArray = [...fotos].reverse(); // Revertir el orden de la array de archivos
+//     filesArray.forEach((file) => {
+//       formData.append("imagenes", file);
+//     });

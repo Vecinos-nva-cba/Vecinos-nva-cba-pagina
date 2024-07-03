@@ -22,8 +22,8 @@ const RedesSchema = z.object({
 const RedesArraySchema = z.array(RedesSchema);
 
 const direccionSchema = z.object({
-  calle: z.string().min(3).max(255),
-  altura: z.number(),
+  calle: z.string().max(255),
+  altura: z.number().optional(),
 });
 
 const LugarSchema = z.object({

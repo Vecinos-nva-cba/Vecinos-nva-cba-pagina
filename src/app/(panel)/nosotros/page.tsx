@@ -1,10 +1,11 @@
+import { RedesSociales } from "@/components/nosotros/RedesSociales";
 import Image from "next/image";
 import Link from "next/link";
-import { IoLogoInstagram, IoLogoTwitch } from "react-icons/io5";
+import { IoLogoInstagram, IoLogoTwitch, IoLogoTwitter } from "react-icons/io5";
 
 export default function NosotrosPage() {
   return (
-    <div className="flex flex-col md:h-[700px] md:min-h-screen md:flex-row justify-center items-center ">
+    <div className="flex flex-col md:h-[700px] md:min-h-screen md:flex-row justify-center items-center relative">
       <div className="p-5 md:p-10 m-3 md:m-10 flex-shrink-0 flex justify-center items-center animate__animated animate__fadeInUp">
         <Image
           src={"/logo-vncba.png"}
@@ -14,7 +15,7 @@ export default function NosotrosPage() {
           className="rounded-lg"
         />
       </div>
-      <div className="p-5 md:pr-5 m-auto animate__animated animate__zoomIn">
+      <div className="p-5 md:pr-5 m-auto relative animate__animated animate__zoomIn">
         <div className="space-y-4">
           <h1 className="text-2xl md:text-3xl font-bold mb-4">
             Sobre nosotros
@@ -74,14 +75,17 @@ export default function NosotrosPage() {
           </p>
         </div>
 
-        <div className="flex flex-row items-center mt-5">
-          <h1 className="mr-3">Nuestras redes:</h1>
-          <Link href={"/"} className="mr-3">
+        {/* <div className="flex flex-row items-center mt-5">
+          <h1 className="mr-3 font-semibold text-lg">Nuestras redes:</h1>
+          <Link href={"https://www.instagram.com/vecinosdenuevacordoba/"} className="mr-3">
             <IoLogoInstagram className="text-3xl md:text-4xl text-pink-500 hover:text-pink-700 cursor-pointer" />
           </Link>
-          <Link href={"/"}>
-            <IoLogoTwitch className="text-3xl md:text-4xl text-purple-500 hover:text-purple-700 cursor-pointer" />
+          <Link href={"https://x.com/i/flow/login?redirect_after_login=%2Fvecinosdenvacba"}>
+            <IoLogoTwitter className="text-3xl md:text-4xl text-celeste-500 hover:text-celeste-700 cursor-pointer" />
           </Link>
+        </div> */}
+        <div className="flex  flex-row items-center justify-center mt-7 p-2">
+          <RedesSociales />
         </div>
       </div>
     </div>

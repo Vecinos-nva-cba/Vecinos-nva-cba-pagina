@@ -55,7 +55,7 @@ model Lugar {
 model Direccion {
   id     String @id @default(uuid())
   calle  String
-  altura Int
+  altura Int?
 
   lugar   Lugar  @relation(fields: [lugarId], references: [id])
   lugarId String
