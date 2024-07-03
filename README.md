@@ -14,6 +14,7 @@ Listo:
 A revisar
  - ver el tema tipografia
 
+
  Tareas
- - tamaño card en principal
+ - Guardar con primera en mayuscula lugar y profesioanl
 

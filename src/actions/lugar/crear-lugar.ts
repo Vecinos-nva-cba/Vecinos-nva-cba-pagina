@@ -36,6 +36,26 @@ const LugarSchema = z.object({
   direccion: direccionSchema,
 });
 
+const capitalizeFirstLetter = (string: string) => {
+  return string.charAt(0).toUpperCase() + string.slice(1).toLocaleLowerCase()
+}
+
+const capitalizeLugarData = ( lugarData: {nombre: string, barrio: string,tipo: string[], localizacion: string, direccion: {calle:string, altura:number}})=> {
+  return {
+    ...lugarData,
+    nombre: capitalizeFirstLetter(lugarData.nombre),
+    barrio: capitalizeFirstLetter(lugarData.barrio),
+    localizacion: lugarData.localizacion ? capitalizeFirstLetter(lugarData.localizacion) : undefined,
+    direccion: {
+      ...lugarData.direccion,
+      calle: capitalizeFirstLetter(lugarData.direccion.calle)
+    },
+    tipo: lugarData.tipo.map(capitalizeFirstLetter)
+    
+  }
+  console.log("Entro a capitalizacion")
+}
+
 export const crearLugar = async (formData: FormData) => {
     console.log("Form data:", formData);
   try {
@@ -56,7 +76,9 @@ export const crearLugar = async (formData: FormData) => {
       tipo: r.tipo,
     }));
 
-    const lugarValido = LugarSchema.safeParse(lugarData);
+    const capitalizedLugarData = capitalizeLugarData(lugarData);
+
+    const lugarValido = LugarSchema.safeParse(capitalizedLugarData);
 
     if (!lugarValido.success) {
       console.error("Error parsing professional data:", lugarValido.error);
@@ -67,6 +89,7 @@ export const crearLugar = async (formData: FormData) => {
     }
 
     const { id, ...restInfo } = lugarValido.data;
+
     const lugar = await prisma.lugar.create({
       data: {
         ...restInfo,

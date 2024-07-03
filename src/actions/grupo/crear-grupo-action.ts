@@ -15,7 +15,20 @@ const GrupoSchema = z.object({
     url: z.string().min(3).max(500),
 })
 
-console.log('Importing crear-grupo module...')
+const capitalizeFirstLetter = (str: string) => {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+const capitalizeGrupoFields = (grupo: {nombre: string, descripcion: string, tipo: string, url: string}) => {
+    return {
+        ...grupo,
+        nombre: capitalizeFirstLetter(grupo.nombre),
+        descripcion: capitalizeFirstLetter(grupo.descripcion),
+        tipo: capitalizeFirstLetter(grupo.tipo),
+    };
+}
+
+
 export const crearGrupoAction = async (formData: FormData) => {
     try {
         const data = Object.fromEntries(formData.entries());
@@ -27,7 +40,10 @@ export const crearGrupoAction = async (formData: FormData) => {
             return { ok: false };
         }
 
-        const grupo = grupoValidado.data;
+        let grupo = grupoValidado.data;
+
+        grupo = capitalizeGrupoFields(grupo);
+        
         const { id, ...restInfo } = grupo;
         
 

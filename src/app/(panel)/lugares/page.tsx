@@ -1,6 +1,12 @@
 
 import { getLugarPaginacion } from "@/actions/lugar/get-lugar-paginacion";
 import { LugarGrid, Paginacion } from "@/components";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Lugares de Nueva cordoba",
+  description: "Lugares a los cuales puedes conocer o probar",
+};
 
 interface Props {
   searchParams: {

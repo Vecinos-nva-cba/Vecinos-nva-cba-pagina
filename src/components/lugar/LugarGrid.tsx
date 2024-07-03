@@ -1,21 +1,24 @@
-'use client'
-import React, { use, useState } from 'react';
-import { Lugar } from '@/interfaces';
-import { LugarCard, Paginacion } from '..';
-import AnimatedOnScroll from '../ui/AnimateScroll';
+"use client";
+import React, { use, useState } from "react";
+import { Lugar } from "@/interfaces";
+import { LugarCard, Paginacion } from "..";
+import AnimatedOnScroll from "../ui/AnimateScroll";
+import { LugarCard2 } from "./LugarCard2";
+import { LugarCard3 } from "./LugarCard3";
 
 interface Props {
   lugares: Lugar[];
-  totalPaginas: number
+  totalPaginas: number;
 }
 
 export const LugarGrid = ({ lugares, totalPaginas }: Props) => {
-  const [searchText, setSearchText] = useState('');
-  const [isSearching, setIsSearching] = useState(false)
+  const [searchText, setSearchText] = useState("");
+  const [isSearching, setIsSearching] = useState(false);
 
-  const filteredLugares = lugares.filter((lugar) =>
-    lugar.nombre.toLowerCase().includes(searchText.toLowerCase()) ||
-    lugar.barrio.toLowerCase().includes(searchText.toLowerCase())
+  const filteredLugares = lugares.filter(
+    (lugar) =>
+      lugar.nombre.toLowerCase().includes(searchText.toLowerCase()) ||
+      lugar.barrio.toLowerCase().includes(searchText.toLowerCase())
   );
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,11 +39,18 @@ export const LugarGrid = ({ lugares, totalPaginas }: Props) => {
       />
 
       {/* Lista de lugares filtrados */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 mx-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 mx-auto">
         {filteredLugares.map((lugar) => (
-          <AnimatedOnScroll key={lugar.nombre + lugar.barrio} animationClass="animate__fadeInUp">
-
-            <LugarCard  lugar={lugar} />
+          <AnimatedOnScroll
+            key={lugar.nombre + lugar.barrio}
+            animationClass="animate__fadeInUp"
+          >
+            <div className="block md:hidden">
+              <LugarCard lugar={lugar} />
+            </div>
+            <div className="hidden md:block">
+              <LugarCard3 lugar={lugar} />
+            </div>
           </AnimatedOnScroll>
         ))}
       </div>
