@@ -23,7 +23,7 @@ const RedesArraySchema = z.array(RedesSchema);
 
 const direccionSchema = z.object({
   calle: z.string().max(255),
-  altura: z.number().optional(),
+  altura: z.number().nullable(),
 });
 
 const LugarSchema = z.object({
@@ -32,7 +32,7 @@ const LugarSchema = z.object({
   barrio: z.string().min(3).max(255),
   tipo: z.array(z.string()).min(1),
   redes: RedesArraySchema.optional(),
-  localizacion: z.string().min(3).max(255).optional(),
+  localizacion: z.string().max(255).nullable(),
   direccion: direccionSchema,
 });
 
@@ -61,7 +61,9 @@ export const crearLugar = async (formData: FormData) => {
       tipo: r.tipo,
     }));
 
-    
+    if (lugarData.direccion.altura === null) {
+      lugarData.direccion.altura = 0;
+    }
 
     const lugarValido = LugarSchema.safeParse(lugarData);
 

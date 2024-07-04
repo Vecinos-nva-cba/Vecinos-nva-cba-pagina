@@ -61,7 +61,8 @@ export default async function LugarPage({ params }: Props) {
               {Array.isArray(lugar?.direccion) &&
                 lugar.direccion.map((direccion, index) => (
                   <span key={index} className="">
-                    {direccion.calle} {direccion.altura}
+                    {direccion.calle}  {" "}
+                    {direccion.altura !== 0 && direccion.altura}
                   </span>
                 ))}
             </div>

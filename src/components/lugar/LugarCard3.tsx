@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { Lugar } from "@/interfaces";
 import Image from "next/image";
 import Link from "next/link";
@@ -31,7 +31,13 @@ export const LugarCard3 = ({ lugar }: Props) => {
             Dirección:{" "}
             <span className="font-light">
               {direccion
-                .map((dir) => `${dir.calle} ${dir.altura}`)
+                .map((dir) => {
+                  if (dir.altura === 0) {
+                    return dir.calle;
+                  } else {
+                    return `${dir.calle} ${dir.altura}`;
+                  }
+                })
                 .join(", ")}
             </span>
           </p>

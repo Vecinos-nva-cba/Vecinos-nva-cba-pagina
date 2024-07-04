@@ -140,7 +140,12 @@ export const LugarNuevo = () => {
     formData.append("barrio", lugarACrear.barrio);
     formData.append("localizacion", lugarACrear.localizacion);
     console.log("lugarACrear.direccion:", lugarACrear.direccion);
-    formData.append("direccion", JSON.stringify(lugarACrear.direccion));
+    
+
+    formData.append("direccion", JSON.stringify({
+      calle: lugarACrear.direccion.calle,
+      altura: lugarACrear.direccion.altura ? lugarACrear.direccion.altura : null,
+    }));
 
     const filesArray = [...fotos].reverse(); // Revertir el orden de la array de archivos
     filesArray.forEach((file) => {
@@ -172,6 +177,7 @@ export const LugarNuevo = () => {
     //   console.log(`${key}: ${value}`);
     // }
 
+  
     try {
       const { ok, lugar: lugarCreado, mensaje } = await crearLugar(formData);
 
@@ -287,7 +293,7 @@ export const LugarNuevo = () => {
           <div className="relative z-0 w-full">
             <input
               type="text"
-              name="localizacion"
+              {...register("localizacion")}
               placeholder="Ubicacion en Google Maps (opcional)"
               className="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
             />
