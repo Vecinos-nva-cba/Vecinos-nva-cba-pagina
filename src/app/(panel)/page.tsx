@@ -47,14 +47,14 @@ export default async function PanelPage() {
   //   "3b36d79f-e857-469a-a86b-4b1cabfe640b"
   // );
   lugares.push(lugarId1);
-  // const lugarId2 = await getLugarOrDefault(
-  //   "d2e78118-c5ee-4985-acba-9b2f2d6ec6a2"
-  // );
-  // const lugarId3 = await getLugarOrDefault(
-  //   "e7f58c01-00b6-4e02-b2b9-3d40e2814acf"
-  // );
-  // lugares.push(lugarId2);
-  // lugares.push(lugarId3);
+  const lugarId2 = await getLugarOrDefault(
+    "d99e8086-62d6-4394-be7d-382dba6e5c20"
+  );
+  const lugarId3 = await getLugarOrDefault(
+    "be69c1af-21ac-4657-9dc9-ccdd853ad280"
+  );
+  lugares.push(lugarId2);
+  lugares.push(lugarId3);
   // console.log(grupo1);
 
   return (
