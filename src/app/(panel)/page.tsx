@@ -80,10 +80,10 @@ export default async function PanelPage() {
             className={`absolute inset-0 flex flex-col justify-center items-center px-5 text-center mg:pb-20 animate__animated animate__fadeInDown`}
           >
             <h1 className="text-2xl md:text-4xl lg:text-5xl text-sky-500 font-bold">
-              Por una vecindad unida
+              Por una vecindad conectada
             </h1>
             <p className="text-xs md:text-lg lg:text-xl font-bold text-white">
-              En búsqueda de poder ayudarnos a través de la comunicación entre
+              En búsqueda de poder ayudarnos a través de la conexion entre
               todos los vecinos de Nueva Córdoba
             </p>
           </div>

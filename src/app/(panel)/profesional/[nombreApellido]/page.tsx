@@ -72,27 +72,29 @@ export default async function ProfesionalPage({ params }: Props) {
             <span>{profesional.trabajo.join(", ")}</span>
           </div>
           {profesional.redesSociales.length > 0 && (
-            <div className="flex flex-col">
+            <div>
               <h1 className=" mb-1">Mis redes sociales:</h1>
-              {profesional.redesSociales.map((red) => (
-                <Link href={red.url} key={red.url} passHref className="flex flex-row">
-                  {red.tipo === "Instagram" && (
-                    <IoLogoInstagram className="text-3xl md:text-4xl text-pink-500 hover:text-pink-700 cursor-pointer mr-2" />
-                  )}
-                  {red.tipo === "Twitter" && (
-                    <IoLogoTwitter className="text-3xl md:text-4xl text-celeste-500 hover:text-celeste-700 cursor-pointer mr-2" />
-                  )}
-                  {red.tipo === "Linkedin" && (
-                    <IoLogoLinkedin className="text-3xl md:text-4xl text-blue-500 hover:text-blue-700 cursor-pointer mr-2" />
-                  )}
-                  {red.tipo === "Facebook" && (
-                    <IoLogoFacebook className="text-3xl md:text-4xl text-blue-500 hover:text-blue-700 cursor-pointer mr-2" />
-                  )}
-                  {red.tipo === "Web" && (
-                    <IoLogoWebComponent className="text-3xl md:text-4xl text-gray-500 hover:text-gray-700 cursor-pointer mr-2" />
-                  )}
-                </Link>
-              ))}
+              <div className="flex flex-row">
+                {profesional.redesSociales.map((red) => (
+                  <Link href={red.url} key={red.url} passHref>
+                    {red.tipo === "Instagram" && (
+                      <IoLogoInstagram className="text-3xl md:text-4xl text-pink-500 hover:text-pink-700 cursor-pointer mr-2" />
+                    )}
+                    {red.tipo === "Twitter" && (
+                      <IoLogoTwitter className="text-3xl md:text-4xl text-celeste-500 hover:text-celeste-700 cursor-pointer mr-2" />
+                    )}
+                    {red.tipo === "Linkedin" && (
+                      <IoLogoLinkedin className="text-3xl md:text-4xl text-blue-500 hover:text-blue-700 cursor-pointer mr-2" />
+                    )}
+                    {red.tipo === "Facebook" && (
+                      <IoLogoFacebook className="text-3xl md:text-4xl text-blue-500 hover:text-blue-700 cursor-pointer mr-2" />
+                    )}
+                    {red.tipo === "Web" && (
+                      <IoLogoWebComponent className="text-3xl md:text-4xl text-gray-500 hover:text-gray-700 cursor-pointer mr-2" />
+                    )}
+                  </Link>
+                ))}
+              </div>
             </div>
           )}
         </div>
